@@ -1,14 +1,21 @@
-**Routine Name:** twoSum
+**Routine Name:** addTwoNumbers
 
 **Author:** Parker Bywater
 
 **Language:** Java. This can be compiled using an appropriate Java compiler. 
 
-**Description/Purpose:** Solves the Two Sum problem on leetcode.com. The link to the problem is [here](https://leetcode.com/problems/two-sum/).
-A brief description of the problem is the following. Given an array of integers and a target number (an integer) and asked to find the indices 
-of two numbers which sum to the target number. You are allowed to assume that there is one unique solution. 
+**Description/Purpose:** Solves the Add Two Numbers problem on leetcode.com. The link to the problem is [here](https://leetcode.com/problems/add-two-numbers/).
+A brief description of the problem is the following. Given two non-empty linked lists representing two non-negative integers in reverse order, find their sum and return it as a similar linked list representation. The following ListNode definition is assumed. 
 
-**Input:** An array of integers, and an integer target. 
+```java 
+class ListNode { 
+    int val; 
+    ListNode next; 
+    ListNode(int x) { val = x; } 
+}
+```
+
+**Input:** Two ListNodes representing the heads of two linked lists. 
 
 **Output:** This routine returns the indices of the two numbers having a sum equal to the target as an array.  
 
