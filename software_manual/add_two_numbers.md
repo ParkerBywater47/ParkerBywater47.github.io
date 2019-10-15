@@ -49,7 +49,9 @@ public static ListNode addTwoNumbers(ListNode head1, ListNode head2) {
         currentLL2 = currentLL2.next;
         out = out.next;
     }
-
+    
+    // try to advance to the next element of list1 as the end of list2 could have been reached before that of list1.
+    // this would leave elements in list one which haven't been added to the total
     while (currentLL1 != null) {
         int theSum = currentLL1.val;
         if (carryTheOne) {
@@ -65,6 +67,8 @@ public static ListNode addTwoNumbers(ListNode head1, ListNode head2) {
         currentLL1 = currentLL1.next;
         out = out.next;
     }
+    
+    // try to advance to the next element of list2 for similar reasons. 
     while (currentLL2 != null) {
         int theSum = currentLL2.val;
         if (carryTheOne) {
@@ -80,6 +84,8 @@ public static ListNode addTwoNumbers(ListNode head1, ListNode head2) {
         currentLL2 = currentLL2.next;
         out = out.next;
     }
+    
+    // check to see if the last addition performed resulted in a value greater than or equal to 10
     if (carryTheOne) {
         out.next = new ListNode(1);
     }
@@ -98,4 +104,4 @@ Printing the output to the console shows
 
       [1, 4]
 
-**Last Modified:** 2/14/19
+**Last Modified:** 6/24/19
