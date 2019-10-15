@@ -15,6 +15,7 @@ class ListNode {
 }
 ```
 
+
 **Input:** Two ListNodes representing the heads of two linked lists. 
 
 **Output:** This routine returns the sum of the two numbers in a reversed linked list representation.  
@@ -26,8 +27,8 @@ public static ListNode addTwoNumbers(ListNode head1, ListNode head2) {
     boolean carryTheOne = false;   
     ListNode currentLL1 = head1;   // the current node of interest in the list headed by head1
     ListNode currentLL2 = head2;   // the current node of interest in the list headed by head2
-    ListNode outRoot = new ListNode(0); // 
-    ListNode out = outRoot;
+    ListNode outHead = new ListNode(0); // the head node with a placeholder value as this node's next will actually be returned
+    ListNode out = outHead;
     
     // iterate over both linked lists adding numbers until one (or both) of the ends of the lists is reached
     while (currentLL1 != null && currentLL2 != null) {
@@ -90,18 +91,26 @@ public static ListNode addTwoNumbers(ListNode head1, ListNode head2) {
         out.next = new ListNode(1);
     }
 
-    return outRoot.next;
+    return outHead.next;
 }
 ```
 
-**Usage/Example:** Sample output with the following inputs
+**Usage/Example:** Sample output adding 765 and 43 as their reverse linked list representations. The code below constructs the linked lists and prints 
 
-    int[] data = {4, 5, 6, 7, 8}; 
-    int target = 13;
-    
+```java
+ListNode h1 = new ListNode(5);
+h1.next = new ListNode(6);
+h1.next.next = new ListNode(7);
 
-Printing the output to the console shows 
+ListNode h2 = new ListNode(3);
+h2.next = new ListNode(4);
 
-      [1, 4]
+ListNode result = addTwoNumbers(h1, h2);
+System.out.print(result.next.next.val + " -> " + result.next.val + " -> " + result.val + "\n");
+```
+
+The following is then output to the console
+
+    8 -> 0 -> 8
 
 **Last Modified:** 6/24/19
