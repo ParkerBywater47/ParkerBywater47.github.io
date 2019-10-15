@@ -12,11 +12,4 @@
 * [Two Sum](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/two_sum.md)
 * [Add Two Numbers](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/add_two_numbers.md)
 * [Median of Two Sorted Arrays](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/median_sorted_arrays.md)
-* [String to Integer (atoi)]
-* [Palindrome Number]
-* [Container With Most Water]
-* [Integer to Roman]
-* [Merge Two Sorted Lists]
-* [Merge k Sorted Lists]
 
-## Miscellaneous
