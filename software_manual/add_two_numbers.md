@@ -27,7 +27,7 @@ public static ListNode addTwoNumbers(ListNode head1, ListNode head2) {
     boolean carryTheOne = false;   
     ListNode currentLL1 = head1;   // the current node of interest in the list headed by head1
     ListNode currentLL2 = head2;   // the current node of interest in the list headed by head2
-    ListNode outHead = new ListNode(0); // the head node with a placeholder value as this node's next will actually be returned
+    ListNode outHead = new ListNode(0); // the head node with a placeholder value as outHead.next is returned
     ListNode out = outHead;
     
     // iterate over both linked lists adding numbers until one (or both) of the ends of the lists is reached
