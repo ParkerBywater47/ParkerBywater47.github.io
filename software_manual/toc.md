@@ -9,14 +9,14 @@
 * [Bisection Method](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/bisection.md) - Computes the approximate root of a function of a single real variable using the bisection method. 
 
 ## Leetcode Problems
-* Two Sum
-* Add Two Numbers
-* Median of Two Sorted Arrays
-* String to Integer (atoi)
-* Palindrome Number
-* Container With Most Water
-* Integer to Roman
-* Merge Two Sorted Lists
-* Merge k Sorted Lists
+* [Two Sum](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/two_sum.md)
+* [Add Two Numbers](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/add_two_numbers.md)
+* [Median of Two Sorted Arrays](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/median_sorted_arrays.md)
+* [String to Integer (atoi)]
+* [Palindrome Number]
+* [Container With Most Water]
+* [Integer to Roman]
+* [Merge Two Sorted Lists]
+* [Merge k Sorted Lists]
 
 ## Miscellaneous
