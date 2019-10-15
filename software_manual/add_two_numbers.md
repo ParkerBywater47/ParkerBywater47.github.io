@@ -17,23 +17,74 @@ class ListNode {
 
 **Input:** Two ListNodes representing the heads of two linked lists. 
 
-**Output:** This routine returns the indices of the two numbers having a sum equal to the target as an array.  
+**Output:** This routine returns the sum of the two numbers in a reversed linked list representation.  
 
-**Implementation/Code:** The following is the code for twoSum. 
+**Implementation/Code:** The following is the code for addTwoNumbers. 
    
 ```java 
-public static int[] twoSum(int[] data, int target) {
-        int[] outArray = new int[2];
-        for (int i =0; i < data.length - 1; i++) {
-            for (int j = i + 1; j < data.length; j++) {
-                if (data[i] + data[j] == target) {
-                    outArray[0] = i;
-                    outArray[1] = j;
-                    return outArray;
-                }
-            }
+public static ListNode addTwoNumbers(ListNode head1, ListNode head2) {
+    boolean carryTheOne = false;   
+    ListNode currentLL1 = head1;   // the current node of interest in the list headed by head1
+    ListNode currentLL2 = head2;   // the current node of interest in the list headed by head2
+    ListNode outRoot = new ListNode(0); // 
+    ListNode out = outRoot;
+    
+    // iterate over both linked lists adding numbers until one (or both) of the ends of the lists is reached
+    while (currentLL1 != null && currentLL2 != null) {
+        // add the two numbers 
+        int theSum = currentLL1.val + currentLL2.val;
+        
+        // if the previous addition resulted in a value greater than or equal to 10
+        if (carryTheOne) {
+            theSum += 1;
         }
-    return outArray;
+        if (theSum >= 10) {
+            carryTheOne = true;
+            out.next = new ListNode(theSum - 10);
+        } else {
+            carryTheOne = false;
+            out.next = new ListNode(theSum);
+        }
+        currentLL1 = currentLL1.next;
+        currentLL2 = currentLL2.next;
+        out = out.next;
+    }
+
+    while (currentLL1 != null) {
+        int theSum = currentLL1.val;
+        if (carryTheOne) {
+            theSum += 1;
+        }
+        if (theSum >= 10) {
+            carryTheOne = true;
+            out.next = new ListNode(theSum - 10);
+        } else {
+            carryTheOne = false;
+            out.next = new ListNode(theSum);
+        }
+        currentLL1 = currentLL1.next;
+        out = out.next;
+    }
+    while (currentLL2 != null) {
+        int theSum = currentLL2.val;
+        if (carryTheOne) {
+            theSum += 1;
+        }
+        if (theSum >= 10) {
+            carryTheOne = true;
+            out.next = new ListNode(theSum - 10);
+        } else {
+            carryTheOne = false;
+            out.next = new ListNode(theSum);
+        }
+        currentLL2 = currentLL2.next;
+        out = out.next;
+    }
+    if (carryTheOne) {
+        out.next = new ListNode(1);
+    }
+
+    return outRoot.next;
 }
 ```
 
