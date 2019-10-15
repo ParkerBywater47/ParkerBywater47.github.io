@@ -36,6 +36,8 @@ public static int[] twoSum(int[] data, int target) {
     int target = 13;
     
 
-This returns [1, 4]
+Printing the output to the console shows 
+
+      [1, 4]
 
 **Last Modified:** 2/14/19
