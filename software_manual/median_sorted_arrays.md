@@ -5,19 +5,17 @@
 **Language:** Java. This can be compiled using an appropriate Java compiler. 
 
 **Description/Purpose:** Solves the Median of Two Sorted Arrays problem on leetcode.com. The link to the problem is [here](https://leetcode.com/problems/median-of-two-sorted-arrays/).
-A brief description of the problem is the following. Given two sorted arrays of integers, find the median of the two arrays. You are allowed to assume that possibly one, but not both of the arrays is empty. 
-
-A brief description of my solution: 
+A brief description of the problem is the following. Given two sorted arrays of integers, find the median of the two arrays. You are allowed to assume that possibly one, but not both of the arrays is empty.
 
 **Input:** Two sorted arrays of integers.
 
-**Output:** This routine returns 
+**Output:** This routine returns the median of the two arrays as an integer. 
 
-**Implementation/Code:** The following is the code for
+**Implementation/Code:** The following is the code for findMedianSortedArrays.
    
 ```java 
 public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-    // Check to see if the smallest element of one array is larger than the largest of another.
+    
     int len1 = nums1.length;
     int len2 = nums2.length;
     boolean pickTwo = (len1 + len2) % 2 == 0;
@@ -37,6 +35,8 @@ public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
     if (pickTwo) {
         if (len1 + len2 == 2)
             return (nums1[0] + nums2[0]) / 2.0;
+        
+        // count elements of the arrays until we get to the middle element (or elements if len1 + len2 is even)
         int elementsToCount = (len1 + len2) / 2 - 1;
         for (int elementsCounted = 0; elementsCounted <= elementsToCount; elementsCounted++) {
             // first check that the pointers are within bounds
@@ -127,8 +127,5 @@ public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
     return -2000000000; // placeholder return value as the java compiler can't prove the correctness of the algorithm
 }
 ```
-
-**Usage/Example:** Sample output  
-
 
 **Last Modified:** 6/23/19
