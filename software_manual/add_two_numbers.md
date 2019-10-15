@@ -51,8 +51,8 @@ public static ListNode addTwoNumbers(ListNode head1, ListNode head2) {
         out = out.next;
     }
     
-    // try to advance to the next element of list1 as the end of list2 could have been reached before that of list1.
-    // this would leave elements in list one which haven't been added to the total
+    // try to advance to the next element of list1 as the end of list2 could have been reached before 
+    // that of list1. This would leave elements in list one which haven't been added to the total
     while (currentLL1 != null) {
         int theSum = currentLL1.val;
         if (carryTheOne) {
@@ -95,10 +95,10 @@ public static ListNode addTwoNumbers(ListNode head1, ListNode head2) {
 }
 ```
 
-**Usage/Example:** Sample output adding 765 and 43 as their reverse linked list representations. The code below constructs the linked lists and prints 
+**Usage/Example:** Sample output adding 765 and 43 as their reverse linked list representations. The code below constructs the linked lists and prints the result
 
 ```java
-ListNode h1 = new ListNode(5);
+ListNode h1 = new ListNode(4);
 h1.next = new ListNode(6);
 h1.next.next = new ListNode(7);
 
@@ -106,11 +106,12 @@ ListNode h2 = new ListNode(3);
 h2.next = new ListNode(4);
 
 ListNode result = addTwoNumbers(h1, h2);
-System.out.print(result.next.next.val + " -> " + result.next.val + " -> " + result.val + "\n");
+System.out.print(result.val +  " -> " + result.next.val + " -> " + result.next.next.val + " -> "
+                + result.next.next.next + "\n");
 ```
 
-The following is then output to the console
+The following is then output to the console. I chose to print the null to show that the whole result was printed. 
 
-    8 -> 0 -> 8
+    7 -> 0 -> 8 -> null
 
 **Last Modified:** 6/24/19
