@@ -4,9 +4,12 @@
 
 **Language:** Java. This can be compiled using an appropriate Java compiler. 
 
-**Description/Purpose:** This routine solves the prob
+**Description/Purpose:** Solves the Median of Two Sorted Arrays problem on leetcode.com. The link to the problem is [here](https://leetcode.com/problems/median-of-two-sorted-arrays/).
+A brief description of the problem is the following. Given two sorted arrays of integers, find the median of the two arrays. You are allowed to assume that possibly one, but not both of the arrays is empty. 
 
-**Input:** 
+A brief description of my solution: 
+
+**Input:** Two sorted arrays of integers.
 
 **Output:** This routine returns 
 
