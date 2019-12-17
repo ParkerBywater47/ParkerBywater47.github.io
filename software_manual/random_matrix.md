@@ -2,7 +2,7 @@
 
 **Author:** Parker Bywater
 
-**Language:** C++. This can be compiled using an appropriate C++ compiler. 
+**Language:** Java. This can be compiled using an appropriate Java compiler. 
 
 **Description/Purpose:** This routine 
 
@@ -12,7 +12,7 @@
 
 **Implementation/Code:** The following is the code for
    
-```C++ 
+```java 
 
 ```
 

@@ -6,7 +6,7 @@
 
 **Description/Purpose:** This routine implements a fixed point iteration for functions of a single real variable. 
 
-**Input:** The inputs for this routine are a class which implements the java.util.Function<Double, Double> interface, an initial guess of the root of the function, a maximum number of iterations, and a desired error tolerance. 
+**Input:** The inputs for this routine are a class which implements the java.util.Function<T, R> interface, an initial guess of the root of the function, a maximum number of iterations, and a desired error tolerance. 
 
 **Output:** This routine returns an approximation of the root or complete garbage as fixed point methods are finnicky. 
 

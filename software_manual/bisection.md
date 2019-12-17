@@ -49,8 +49,8 @@ class CoshFunction implements Function<Double, Double> {
 Running the code and printing to the console from a main method can be accomplished with the following two lines of code. 
 
 ```java 
-    double bisectRoot = bisection(new CoshFunction(), -100, 100, 1.0E-6);
-    System.out.println("The root of x*cosh(x) + x^3 - pi is approximately " + bisectRoot);
+ double bisectRoot = bisection(new CoshFunction(), -100, 100, 1.0E-6);
+ System.out.println("The root of x*cosh(x) + x^3 - pi is approximately " + bisectRoot);
 ```
 This outputs the following to the console. 
     
