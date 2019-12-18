@@ -3,19 +3,25 @@
 ## Numerical Analysis Routines
 
 ### Basic Routines
-* [Single Machine Precision](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/single_machine_precision.md) - Computes machine epsilon for single precision floating point numbers. 
-* [Double Machine Precision](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/double_machine_precision.md) - Computes machine epsilon for double precision floating point numbers.
- [Absolute Error](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/abs_err.md) - Computes the absolute error between a number, say x, and approximation of a number, say y. 
-* [Relative Error](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/rel_err.md) - Computes the relative error between a number, say x, and approximation of a number, say y.
+* [Single Machine Precision](./single_machine_precision.md) - Computes machine epsilon for single precision floating point numbers. 
+* [Double Machine Precision](./double_machine_precision.md) - Computes machine epsilon for double precision floating point numbers.
+* [Absolute Error](./abs_err.md) - Computes the absolute error between a number, say x, and approximation of a number, say y. 
+* [Relative Error](./rel_err.md) - Computes the relative error between a number, say x, and approximation of a number, say y.
 
 ### Root Finding Methods
-* [Fixed Point Iteration](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/fixed_point.md) - Computes the approximate root of a function of a single real variable using a functional iteration technique. 
-* [Bisection Method](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/bisection.md) - Computes the approximate root of a function of a single real variable using the bisection method. 
-* [Newton's Method](./software_manual/newton.md)
+* [Fixed Point Iteration](./fixed_point.md) - Computes the approximate root of a function of a single real variable using a functional iteration technique. 
+* [Bisection Method](./bisection.md) - Computes the approximate root of a function of a single real variable using the bisection method. 
+* [Newton's Method](./newton.md) - An implementation of Newton's method for computing approximate roots of a function of a single real variable. 
+* [Secant Method](./secant.md) - An implementation of the secant method for computing approximate roots of a function of a single real variable.
+* [Bisection-Newton Hybrid](./bisectNewtonHybrid.md) - My very own hybrid root finding method which uses Newton's
+method for fast convergence and the bisection method to guarantee convergence. 
+* [Bisection-Secant Hybrid](./bisectSecantHybrid.md) -  
 
+### Linear Algebra Routines 
+ 
 ## Leetcode Problems
-* [Two Sum](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/two_sum.md)
-* [Add Two Numbers](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/add_two_numbers.md)
-* [Median of Two Sorted Arrays](https://github.com/ParkerBywater718/ParkerBywater718.github.io/blob/master/software_manual/median_sorted_arrays.md)
+* [Two Sum](./two_sum.md)
+* [Add Two Numbers](./add_two_numbers.md)
+* [Median of Two Sorted Arrays](./median_sorted_arrays.md)
 
 
