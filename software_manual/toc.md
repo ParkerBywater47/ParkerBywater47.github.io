@@ -20,7 +20,7 @@ method for fast convergence and the bisection method to guarantee convergence.
 ### Linear Algebra Routines 
 * [Dot Product](./dotProduct.md) - Computes the dot product of two vectors. 
 * [Cross Product](./crossProduct.md) - Computes the cross product of two three-dimensional vectors. Someday I'll implement the seven-dimensional cross product [(check out the 7D-cross product)](https://en.wikipedia.org/wiki/Seven-dimensional_cross_product#Coordinate_expressions). 
-* [Matrix-Vector Multiplication](./left_matrix_vector_mult_p.md) - Computes Ax where A is a matrix and x is a vector. 
+* [Matrix-Vector Multiplication](./left_matrix_vector_mult.md) - Computes Ax where A is a matrix and x is a vector. 
 * [SAXPY](./saxpy.md) - Computes single-precision Ax + y where A is a matrix and x and y are vectors. 
 * [LU](./LU.md) - Computes the LU facorization of a matrix. 
 * [Diagonal Solver](./diagonalSolver.md) - Solves a diagonal system of linear equations. 

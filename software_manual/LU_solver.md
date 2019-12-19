@@ -2,17 +2,16 @@
 
 **Author:** Parker Bywater
 
-**Language:** C++. Get your g++ ready.  
+**Language:** C++. Pick your favorite compiler (probably g++).   
 
-**Description/Purpose:** This routine solves a square system of linear equations using the LU-factorization of the coeffecient 
-matrix. 
+**Description/Purpose:** This routine solves a square system of linear equations using the LU-factorization 
+of the coeffecient matrix. 
 
-**Input:** Lower triangular matrix, upper triangular matrix, right-hand side vector b, an array, x, to store the solution, and the 
-dimension of the matrix. 
+**Input:** Lower and upper triangular matrices, a vector to solve for, a memory location to store the solution, and the dimension of the matrix. 
  
 **Output:** This routine writes the solution of the system to the parameter 'x[]'.
 
-**Implementation/Code:** The following is the code for LU\_solver
+**Implementation/Code:** The following is the code for LU\_solver.
 ```C++ 
 using namespace std; 
 
