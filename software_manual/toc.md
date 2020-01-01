@@ -26,7 +26,7 @@ method for fast convergence and the bisection method to guarantee convergence.
 in-place implementation (to save memory) and an implementation that initially copies the matrix given
 into a new matrix to not alter the given data if necessary. 
     * [In-place](./gauss_elim_square_in_place.md)
-    * [Memory Hog](.gauss_elim_square.md)
+    * [Memory Hog](./gauss_elim_square.md)
 * [LU](./LU.md) - Computes the LU facorization of a matrix. 
 * [Diagonal Solver](./diagonal_solver.md) - Solves a diagonal system of linear equations. 
 * 
