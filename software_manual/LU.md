@@ -2,44 +2,35 @@
 
 **Author:** Parker Bywater
 
-**Language:** Java. This can be compiled using an appropriate Java compiler. 
+**Language:** C++. This can be compiled using an appropriate C++ compiler. 
 
 **Description/Purpose:** This routine computes the LU-factorization of a square matrix.  
 
-**Input:** A square matrix represented as a 2-dimensional array of doubles. 
+**Input:** A square matrix and two empty matrices to store L and U.  
  
 **Output:** This routine returns the LU-factorization of the matrix as two seperate entities.  
 
 **Implementation/Code:** The following is the code for LU. 
-```java 
-public static double[][][] LU(double[][] A) {
-    if (A.length == 0)
-        throw new IllegalArgumentException("Matrix cannot be empty");
-
-    double[][] L = new double[A.length][A.length];
-    for (int i = 0; i < L.length; i++)
-        L[i][i] = 1;
-    
-    double[][] U = new double[A.length][A.length];
-    for (int i = 0; i < A.length; i++)
-        System.arraycopy(A[i], 0, U[i], 0, A.length);
-    
-    for (int k = 0, r = 0; k < U.length; k++, r++) {
-        if (U[r][k] != 0) {
+```C++
+void LU(Matrix& A, Matrix& L_out, Matrix& U_out)
+{ 
+    const int n = U.get_num_rows(); 
+    for (int k = 0, r = 0; k < n; k++, r++) 
+    {
+	if (U[r][k] != 0)   
+	{
             double pivot = U[r][k];
-            for (int i = r + 1; i < U.length; i++) {
+            for (int i = r + 1; i < n; i++) 
+	    {
                 double multiplier = U[i][k] / pivot;
-                // U[r] = U[r] - multiplier * U[r-1]
-                for (int j = 0; j < U[r].length; j++) {
+                for (int j = 0; j < n; j++)
+		{
                     U[i][j] = U[i][j] - multiplier * U[r][j];
                 }
                 L[i][k] = multiplier;
             }
-
         }
     }
-
-    return new double[][][]{L, U};
 }  
 ```
 

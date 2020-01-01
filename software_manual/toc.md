@@ -28,7 +28,7 @@ into a new matrix to not alter the given data if necessary.
     * [In-place](./gauss_elim_in_place.md)
     * [Memory Hog](.gauss_elim.md)
 * [LU](./LU.md) - Computes the LU facorization of a matrix. 
-* [Diagonal Solver](./diagona_solver.md) - Solves a diagonal system of linear equations. 
+* [Diagonal Solver](./diagonal_solver.md) - Solves a diagonal system of linear equations. 
 * 
     * [Square Solver](./square_solver.md) - Solves a square system of linear equations. 
 
