@@ -18,19 +18,26 @@ method for fast convergence and the bisection method to guarantee convergence.
 * [Bisection-Secant Hybrid](./bisectSecantHybrid.md) -  
 
 ### Linear Algebra Routines 
+Many of these routines use a Matrix class I defined. It's essentially a nice container for two-dimensional arrays. The source is [here](./Matrix.cpp).  
 * [Dot Product](./dot_product.md) - Computes the dot product of two vectors. 
 * [Cross Product](./cross_product.md) - Computes the cross product of two three-dimensional vectors. Someday I'll implement the seven-dimensional cross product [(check out the 7D-cross product)](https://en.wikipedia.org/wiki/Seven-dimensional_cross_product#Coordinate_expressions). 
+
 * [Matrix-Vector Multiplication](./left_matrix_vector_mult.md) - Computes Ax where A is a matrix and x is a vector. 
 * [SAXPY](./saxpy.md) - Computes single-precision Ax + y where A is a matrix and x and y are vectors. 
-* [Gaussian Elimination] - Performs Gaussian elimination on a square matrix. My library includes an
+
+* Gaussian Elimination - Performs Gaussian elimination on a square matrix. My library includes an
 in-place implementation (to save memory) and an implementation that initially copies the matrix given
 into a new matrix to not alter the given data if necessary. 
     * [In-place](./gauss_elim_square_in_place.md)
     * [Memory Hog](./gauss_elim_square.md)
-* [LU](./LU.md) - Computes the LU facorization of a matrix. 
+* LU-factorization - Computes the LU-factorization of a square matrix. Like before I have both an in-place implementation and an implementation which copies the data given. But, the in-place implementation 
+used here is a compressed storage version of the LU-factorization of a matrix. Given that the diagonal entries of the lower-triangular matrix are always 1, we can "merge" L and U into one matrix that stores
+the important information of the LU-factorization.  
+    * [Compressed Storage](./LU_compressed.md)
+    * [Memory Hog](./LU.md) 
+
 * [Diagonal Solver](./diagonal_solver.md) - Solves a diagonal system of linear equations. 
-* 
-    * [Square Solver](./square_solver.md) - Solves a square system of linear equations. 
+* [Square Solver](./square_solver.md) - Solves a square system of linear equations. 
 
 
 ## Leetcode Problems

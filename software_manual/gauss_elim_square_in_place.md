@@ -1,43 +1,55 @@
-**Routine Name:** gaussElimSquareInPlace 
+**Routine Name:** gauss_elim_square_in_place 
 
 **Author:** Parker Bywater
 
-**Language:** Java. This can be compiled using an appropriate Java compiler. 
+**Language:** C++. This can be compiled using an appropriate C++ compiler. 
 
-**Description/Purpose:** This routine performs gaussian elimination on a square matrix by performing in place row operations. 
-Specifically, it overwrites the array given. 
+**Description/Purpose:** This routine performs gaussian elimination on a square matrix. Swaps rows when necessary. This routine acts "in place", that is, it will change
+the data stored in the arguments given. 
 
-**Input:** A square matrix represented as a 2-dimensional array. This array is overwritten to contain the reduced form.  
+**Input:** A square matrix represented which is an instance of my Matrix class [here](./Matrix.cpp). This array is overwritten to contain the reduced form.  
  
 **Output:** This routine returns the row echelon form of the matrix. 
 
-**Implementation/Code:** The following is the code for gaussElimSquare.
-```java 
-static void gaussElimSquareInPlace(double[][] A) {
-    if (A.length == 0)
-        throw new IllegalArgumentException("Matrix cannot be empty");
+**Implementation/Code:** The following is the code for gauss_elim_square_in_place.
+```C++ 
+void gauss_elim_square_in_place(Matrix& A)
+{
+    const int n = A.get_num_rows(); 
+    if (n == 0)
+	throw "Matrix cannot be empty";
+    if (n != A.get_num_cols())
+        throw "Matrix must be square"; 
 
-    for (int k = 0, r = 0; k < A.length; k++, r++) {
+    // elimination code
+    for (int k = 0, r = 0; k < n; k++, r++) {
+        // check that this entry is not zero as pivots cannot be zero
         if (A[r][k] != 0) {
             double pivot = A[r][k];
-            for (int i = r + 1; i < A.length; i++) {
+
+            // eliminate entries below the pivot
+            for (int i = r + 1; i < n; i++) {
                 double multiplier = A[i][k] / pivot;
-                // A[r] = A[r] - multiplier * A[r-1]
-                for (int j = 0; j < A[r].length; j++) {
-                    A[i][j] = A[i][j] - multiplier * A[r][j];
+
+                // if the multiplier is zero this for loop does no work
+                if (multiplier != 0) {
+                    // do the row subtraction
+                    for (int j = 0; j < n; j++) {
+                        A[i][j] = A[i][j] - multiplier * A[r][j];
+                    }
                 }
             }
         }
         else {
             // try to find a pivot in other rows of column k
-            int i ;
-            for (i = 0; i < A.length; i++) {
+            int i;
+            for (i = r + 1; i < n; i++) {
                 if (A[i][k] != 0) {
-                    double[] temp = A[r];
-                    A[r] = A[i];
-                    A[i] = temp;
-                    // decrement the values of r and k because the for loop will increment them and skip the 
-                    // row which was just swapped
+                    // swap rows of the matrix
+                    A.swap_rows(r, i); 
+
+                    // decrement the values of r and k because the outermost for loop will increment them and skip
+                    // elimination using the row which was just swapped
                     r--;
                     k--;
                     break;
@@ -45,7 +57,7 @@ static void gaussElimSquareInPlace(double[][] A) {
             }
             // check for an unsuccessful pivot search and decrement r because the outer for loop will
             // increment r and skip a row
-            if (i == A.length)
+            if (i == n)
                 r--;
         }
     }
@@ -68,4 +80,4 @@ The values of the array are now
     0.0000	    0.0000	    0.0000	  -13.2366	    1.2561	
     0.0000	    0.0000	   -0.0000	    0.0000	   -4.6013 
 
-**Last Modified:** 11/6/19 
+**Last Modified:** 1/10/20 

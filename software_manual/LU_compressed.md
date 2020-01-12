@@ -1,10 +1,11 @@
-**Routine Name:** LUinPlace.md 
+**Routine Name:** LU_compressed
 
 **Author:** Parker Bywater
 
-**Language:** Java. This can be compiled using an appropriate Java compiler. 
+**Language:** C++. This can be compiled using an appropriate C++ compiler. 
 
-**Description/Purpose:** This routine computes the LU-factorization of a matrix.   
+**Description/Purpose:** This routine computes the LU-factorization of a matrix and stores it in a 
+single matrix. Read the output section below for more.  
 
 **Input:** A square matrix.  
  
@@ -12,23 +13,29 @@
 the 2-dimensional array given is overwritten with a matrix where the lower-triangular entries of the matrix are 
 identical to the lower-triangular entries of L while the diagonal and upper-triangular entries are identical to U.  
 
-**Implementation/Code:** The following is the code for LUinPlace
-```java 
-static void LUinPlace(double[][] A) {
-    for (int k = 0, r = 0; k < A.length; k++, r++) {
+**Implementation/Code:** The following is the code for LU_compressed
+```C++ 
+void LU_compressed(Matrix& A) 
+{
+    const int n = A.get_num_rows();
+    for (int k = 0, r = 0; k < n; k++, r++) {
         // try to find a pivot in the first column
-        if (A[r][k] != 0) {
+        if (A[r][k] != 0)
+	{
             double pivot = A[r][k];
-            for (int i = r + 1; i < A.length; i++) {
-                double multiplier = A[i][k] / pivot;
+            for (int i = r + 1; i < n; i++) 
+	    {
+                double multiplier = A[i][k] / pivot;                                               
+
                 // A[r] = A[r] - multiplier * A[r-1]
-                for (int j = k; j < A[r].length; j++) {
-                    A[i][j] = A[i][j] - multiplier * A[r][j];
+                for (int j = k; j < n; j++) 
+		{
+                    A[i][j] = A[i][j] - multiplier * A[r][j];                                        
                 }
                 A[i][k] = multiplier;
             }
         }
-    }
+    } 
 }
 ```
 
