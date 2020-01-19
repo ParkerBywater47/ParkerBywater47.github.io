@@ -13,23 +13,25 @@ must be included and must be enabled at compile time as follows.
 
 **Input:** The matrix and vector to be multiplied. A place to store the result, the number of rows
 in the matrix, and the number of columns of the matrix. The Matrix object is an instance of my 
-[Matrix class](./Matrix.cpp) 
+[Matrix class](./Matrix.cpp).
  
-**Output:** This routine writes the result of Ax to the parameter 'out[]'.  
+**Output:** This routine writes the result of Ax to the parameter 'out'.  
 
 **Implementation/Code:** The following is the code for left\_matrix\_vector\_mult\_.
    
 ```C++
 #include <omp.h>
  
-void left_matrix_vector_mult(Matrix& A, double x[], double out[], const int rows, const int cols)
+void left_matrix_vector_mult(Matrix& A, double x[], double out[])
 { 
+    const int num_rows = A.get_num_rows(); 
+    const int num_cols = A.get_num_cols(); 
     # pragma omp parallel 
     # pragma omp for
-    for (int i = 0; i < rows; i++)
+    for (int i = 0; i < num_rows; i++)
     {
         double dot_product = 0; 
-        for (int j = 0; j < cols; j++)
+        for (int j = 0; j < num_cols; j++)
         {
             dot_product += A[i][j] * x[j];
         }

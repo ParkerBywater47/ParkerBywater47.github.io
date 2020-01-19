@@ -7,7 +7,7 @@
 **Description/Purpose:** This routine performs gaussian elimination on a square matrix. Swaps rows when necessary. This routine acts "in place", that is, it will change
 the data stored in the arguments given. 
 
-**Input:** A square matrix represented which is an instance of my Matrix class [here](./Matrix.cpp). This array is overwritten to contain the reduced form.  
+**Input:** A square matrix which is an instance of my Matrix class [here](./Matrix.cpp). The contents of this object are overwritten to contain the reduced form.  
  
 **Output:** This routine returns the row echelon form of the matrix. 
 
@@ -48,8 +48,8 @@ void gauss_elim_square_in_place(Matrix& A)
                     // swap rows of the matrix
                     A.swap_rows(r, i); 
 
-                    // decrement the values of r and k because the outermost for loop will increment them and skip
-                    // elimination using the row which was just swapped
+                    // decrement the values of r and k because the outermost for loop will increment
+		    // them and skip elimination using the row which was just swapped
                     r--;
                     k--;
                     break;

@@ -5,20 +5,21 @@
 **Language:** C++. This can be compiled using an appropriate C++ compiler. 
 
 **Description/Purpose:** This routine solves a square linear system of equations using Gaussian elimination and 
-back substitution. This routine performs the gaussian elimination naiively, that is, it assumes the matrix is not singular.  
+back substitution. This routine performs the gaussian elimination naiively, that is, it assumes the matrix is not singular 
+and does not make an attempt to swap rows.  
 
 **Input:** A matrix, a right-hand side vector, and a memory location to store the result.   
  
 **Output:** This routine writes the solution of the system to the provided memory location. 
 
-**Implementation/Code:** The following is the code for squareSolver.
+**Implementation/Code:** The following is the code for square_solver.
 ```C++  
-void square_solver(Matrix& A, double b[], double out[]) 
+void square_solver(const Matrix& A, double b[], double out[]) 
 {
     // copy the Matrix  
     Matrix copy = A;
 
-    // do elimination on the matrix
+    // do elimination on the copied matrix
     gauss_elim_in_place(copy); 
 
     // call function which back-substitutes to get the solution
