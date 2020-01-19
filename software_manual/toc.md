@@ -38,6 +38,7 @@ the important information of the LU-factorization.
 
 * [Diagonal Solver](./diagonal_solver.md) - Solves a diagonal system of linear equations. 
 * [Square Solver](./square_solver.md) - Solves a square system of linear equations. 
+* [LU Solver](./LU_solver.md) - Solves a square system of linear equations given the LU-factorization of the coeffecient matrix. 
 
 
 ## Leetcode Problems

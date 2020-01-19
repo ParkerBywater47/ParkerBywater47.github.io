@@ -7,7 +7,7 @@
 **Description/Purpose:** This routine performs gaussian elimination on a square matrix. Swaps rows when necessary. This routine acts "in place", that is, it will change
 the data stored in the arguments given. 
 
-**Input:** A square matrix which is an instance of my Matrix class [here](./Matrix.cpp). The contents of this object are overwritten to contain the reduced form.  
+**Input:** A square matrix as an instance of my Matrix class [here](./Matrix.cpp). The contents of this object are overwritten to contain the reduced form.  
  
 **Output:** This routine returns the row echelon form of the matrix. 
 

@@ -23,8 +23,11 @@ Matrix gauss_elim_square(Matrix& A) {
     Matrix out = A; 
 
     gauss_elim_square_in_place(out); 
+    return out; 
 }
 ```
+
+* `gauss_elim_in_place` code [here](./gauss_elim_in_place.md)
 
 **Usage/Example:** Sample output when the matrix below is passed as input.  
     

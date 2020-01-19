@@ -28,9 +28,8 @@ void square_solver(const Matrix& A, double b[], double out[])
 }
 ```
 
-* Matrix class code [here](./Matrix.cpp)
-* Gaussian elimination code [here](./gauss_elim_in_place.md)
-* up_triangular_back_sub code [code](./up_triangular_back_sub.md). 
+* `gauss_elim_in_place` code [here](./gauss_elim_in_place.md)
+* `up_triangular_back_sub` code [here](./up_triangular_back_sub.md). 
 
 **Usage/Example:** Sample output for the matrix A = 
 

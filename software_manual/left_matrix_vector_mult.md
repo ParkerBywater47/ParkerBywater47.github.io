@@ -2,7 +2,7 @@
 
 **Author:** Parker Bywater
 
-**Language:** C++. Pick your favorite compiler.  
+**Language:** C++. This can be compiled using an appropriate C++ compiler. 
 
 **Description/Purpose:** This routine multiplies a matrix into a vector from the left.
 That is, it computes Ax where A is the matrix and x is the vector. This routine includes OpenMP
