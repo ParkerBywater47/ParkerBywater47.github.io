@@ -8,7 +8,8 @@
 back substitution. This routine performs the gaussian elimination naiively, that is, it assumes the matrix is not singular 
 and does not make an attempt to swap rows.  
 
-**Input:** A matrix, a right-hand side vector, and a memory location to store the result.   
+**Input:** A square matrix, a right-hand side vector, and a memory location to store the result. The
+matrix should be an instance of [this](./Matrix.cpp) Matrix class and the vector should be an array.
  
 **Output:** This routine writes the solution of the system to the provided memory location. 
 
@@ -29,7 +30,7 @@ void square_solver(const Matrix& A, double b[], double out[])
 
 * Matrix class code [here](./Matrix.cpp)
 * Gaussian elimination code [here](./gauss_elim_in_place.md)
-* up_triangular_back_sub code [code](./upTriangularBackSub.md). 
+* up_triangular_back_sub code [code](./up_triangular_back_sub.md). 
 
 **Usage/Example:** Sample output for the matrix A = 
 

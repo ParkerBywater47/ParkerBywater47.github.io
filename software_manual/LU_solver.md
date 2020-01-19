@@ -4,58 +4,29 @@
 
 **Language:** C++. Pick your favorite compiler (probably g++).   
 
-**Description/Purpose:** This routine solves a square system of linear equations using the LU-factorization 
-of the coeffecient matrix. 
+**Description/Purpose:** This routine solves a square system of linear equations given the 
+LU-factorization of the coeffecient matrix. 
 
-**Input:** Lower and upper triangular matrices, a vector to solve for, a memory location to store the solution, and the dimension of the matrix. 
+**Input:** Lower and upper triangular matrices, a right-hand side vector, and a memory location to 
+store the solution. The matrices should be instances of [this](./Matrix.cpp) class and the vector 
+should be an array.   
  
-**Output:** This routine writes the solution of the system to the parameter 'x[]'.
+**Output:** This routine writes the solution of the system to the 'out' parameter.
 
 **Implementation/Code:** The following is the code for LU\_solver.
 ```C++ 
-using namespace std; 
-
-void up_triangular_back_sub(double *U[], int n, double b[], double x[]);
-void lower_triangular_fwd_sub(double *L[], int n, double b[], double x[]); 
-
-void LU_solver(double *L[], double *U[], int n, double b[], double x[]) 
+void LU_solver(Matrix& L, Matrix& U, double b[], double out[]) 
 {
     // solve Ly = b 
-    double y[n]; 
-    lower_triangular_fwd_sub(L, n, b, y); 
+    double *  y = new double[n]; 
+    lower_triangular_fwd_sub(L, b, y); 
 
     // solve Ux = y
-    up_triangular_back_sub(U, n, y, x);  
+    up_triangular_back_sub(U, y, x);  
+    delete[] y; 
 }
-
-void up_triangular_back_sub(double *U[], int n, double b[], double x[]) 
-{
-    x[n - 1] = b[n - 1] / U[n - 1][n - 1];
-    for (int i = n - 2; i >= 0; i--) {
-        double thatSum = 0;
-        for (int j = i + 1; j < n; j++)
-        {
-            thatSum += U[i][j] * x[j];
-        }
-        x[i] = (b[i] - thatSum) / U[i][i];
-    }
-}
-
-
-void lower_triangular_fwd_sub(double *L[], int n, double b[], double x[]) 
-{
-    x[0] = b[0] / L[0][0];
-    for (int i = 1; i < n; i++) {
-        double thatSum = 0;
-        for (int j = i - 1; j >= 0; j--) 
-        {
-            thatSum += L[i][j] * x[j];
-        }       
-        x[i] = (b[i] - thatSum) / L[i][i];
-    }
-}
-
 ```
+
 **Usage/Example:** Sample output with L = 
 
     1.0000   0.0000   0.0000   0.0000   0.0000
