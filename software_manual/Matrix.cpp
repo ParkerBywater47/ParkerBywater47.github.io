@@ -1,8 +1,7 @@
 #include <iostream>
 #include "Matrix.h"
 
-Matrix::Matrix(int num_rows, int num_cols): num_rows_(num_rows), num_cols_(num_cols)
-{}
+Matrix::Matrix(int num_rows, int num_cols): num_rows_(num_rows), num_cols_(num_cols){}
 
 Matrix::Matrix(int num_rows, int num_cols, double * ptr_to_first): num_rows_(num_rows), num_cols_(num_cols)
 {
