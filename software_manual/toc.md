@@ -40,6 +40,10 @@ the important information of the LU-factorization.
 * [Square Solver](./square_solver.md) - Solves a square system of linear equations. 
 * [LU Solver](./LU_solver.md) - Solves a square system of linear equations given the LU-factorization of the coeffecient matrix. 
 
+* [Jacobi Iteration](./jacobi.md) - Solves a square stricly diagonally dominant system of linear equations iteratively using the Jacobi method. 
+<!-- 
+* [Gauss-Seidel](./gauss_sediel.md) - 
+-->
 
 ## Leetcode Problems
 * [Two Sum](./two_sum.md)
