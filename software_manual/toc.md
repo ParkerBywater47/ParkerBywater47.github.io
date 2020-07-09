@@ -3,8 +3,8 @@
 ## Numerical Analysis Routines
 
 ### Basic Routines
-* [Single Machine Precision](./single_machine_precision.md) - Computes machine epsilon for single precision floating point numbers. 
-* [Double Machine Precision](./double_machine_precision.md) - Computes machine epsilon for double precision floating point numbers.
+* [Single Machine Precision](./single_macheps.md) - Computes machine epsilon for single precision floating point numbers. 
+* [Double Machine Precision](./double_macheps.md) - Computes machine epsilon for double precision floating point numbers.
 * [Absolute Error](./abs_err.md) - Computes the absolute error between a number, say x, and approximation of a number, say y. 
 * [Relative Error](./rel_err.md) - Computes the relative error between a number, say x, and approximation of a number, say y.
 
