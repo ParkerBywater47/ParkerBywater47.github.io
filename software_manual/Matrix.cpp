@@ -1,5 +1,5 @@
-#include <iostream>
-#include "Matrix.h"
+//#include <iostream>
+#include "Matrix.hpp"
 
 Matrix::Matrix(int num_rows, int num_cols): num_rows_(num_rows), num_cols_(num_cols){}
 
