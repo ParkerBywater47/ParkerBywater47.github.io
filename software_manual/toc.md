@@ -18,7 +18,7 @@ method for fast convergence and the bisection method to guarantee convergence.
 * [Bisection-Secant Hybrid](./bisectSecantHybrid.md) -  
 
 ### Linear Algebra Routines 
-Many of these routines use a Matrix class I defined. It's essentially a nice container for two-dimensional arrays. The source is [here](./Matrix.cpp).  
+Many of these routines use a Matrix class I defined. It's essentially a nice container for two-dimensional arrays. The source is [here](../src/Matrix.cpp).  
 * [Dot Product](./dot_product.md) - Computes the dot product of two vectors. 
 * [Cross Product](./cross_product.md) - Computes the cross product of two three-dimensional vectors. Someday I'll implement the seven-dimensional cross product [(check out the 7D-cross product)](https://en.wikipedia.org/wiki/Seven-dimensional_cross_product#Coordinate_expressions). 
 

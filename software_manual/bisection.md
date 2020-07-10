@@ -2,7 +2,7 @@
 
 **Author:** Parker Bywater
 
-**Language:** C++. 
+**Language:** C++ 
 
 **Description/Purpose:** This routine finds approximate roots of a function of a single real variable using the bisection method. This requires a continuous function (f) and an interval [a,b] such that f(a) \* f(b) <= 0.  
 
@@ -60,11 +60,12 @@ double cosh_function(double x)
 
 int main()
 { 
-    printf("%s %.16f\n", "The root of x*cosh(x) + x^3 - pi is approximately", bisection(cosh_function, -100, 100, 1.0E-6));
+    printf("%s %.16f\n", "The root of x*cosh(x) + x^3 - pi is approximately", 
+                        bisection(cosh_function, -100, 100, 1.0E-6));
 }
 ```
 The output should be similar to mine shown below
     
-    The root of x*cosh(x) + x^3 - pi is approximately 1.0963277882922142
+    The root of x*cosh(x) + x^3 - pi is approximately 1.0963279753923416
 
 **Last Modified:** 10/6/19
