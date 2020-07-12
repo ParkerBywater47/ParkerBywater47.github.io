@@ -1,4 +1,5 @@
 #include "Matrix.hpp"
+#include <iostream>
 
 Matrix::Matrix(int num_rows, int num_cols): num_rows_(num_rows), num_cols_(num_cols){}
 
@@ -16,7 +17,7 @@ Matrix::~Matrix() {
 }
 
 Matrix::Matrix(const Matrix& mat) {
-    cout << "just want to make sure this doesn't get called" << endl;
+    std::cout << "just want to make sure this doesn't get called" << std::endl;
     num_rows_ = mat.num_rows_;
     num_cols_ = mat.num_cols_; 
     this->data = new double*[mat.num_rows_]; 

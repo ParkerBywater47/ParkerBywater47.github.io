@@ -25,15 +25,13 @@ void left_matrix_vector_mult(Matrix& A, double x[], double out[])
     # pragma omp for
     for (int i = 0; i < num_rows; i++)
     {
-        double dot_product = 0; 
-        for (int j = 0; j < num_cols; j++)
-        {
-            dot_product += A[i][j] * x[j];
-        }
-        out[i] = dot_product; 
+        out[i] = dot_product(A[i], x, num_cols);
     }    
 }
 ```
+**Dependencies:**
+* `dot_product` code [here](./dot_product.md)
+
 
 **Usage/Example:** Sample output with A =   
 

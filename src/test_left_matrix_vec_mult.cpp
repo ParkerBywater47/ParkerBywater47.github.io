@@ -2,24 +2,7 @@
 #include <omp.h>
 
 #include "Matrix.hpp"
-
- 
-void left_matrix_vector_mult(Matrix& A, double x[], double out[])
-{ 
-    const int num_rows = A.get_num_rows(); 
-    const int num_cols = A.get_num_cols(); 
-    # pragma omp parallel 
-    # pragma omp for
-    for (int i = 0; i < num_rows; i++)
-    {
-        double dot_product = 0; 
-        for (int j = 0; j < num_cols; j++)
-        {
-            dot_product += A[i][j] * x[j];
-        }
-        out[i] = dot_product; 
-    }    
-}
+#include "LinAlg.hpp"
 
 int main() { 
 
