@@ -2,37 +2,46 @@
 
 **Author:** Parker Bywater
 
-**Language:** C++. This can be compiled using an appropriate C++ compiler. 
+**Language:** C++
 
 **Description/Purpose:** This routine performs gaussian elimination on a square matrix. Swaps rows when necessary. This routine acts "in place", that is, it will change
 the data stored in the arguments given. 
 
-**Input:** A square matrix as an instance of my Matrix class [here](./Matrix.cpp). The contents of this object are overwritten to contain the reduced form.  
+**Input:** A square matrix as an instance of [this](./src/Matrix.cpp) Matrix class. The contents of this object are overwritten to contain the reduced form.  
  
-**Output:** This routine returns the row echelon form of the matrix. 
+**Output:** This routine returns the row reduced form of the matrix. 
+
+**Exceptions:** Throws `std::invalid_argument` if the matrix given is not square.
 
 **Implementation/Code:** The following is the code for gauss_elim_square_in_place.
+
 ```C++ 
+#include <stdexcept>
+
 void gauss_elim_square_in_place(Matrix& A)
 {
     const int n = A.get_num_rows(); 
-    if (n == 0)
-	throw "Matrix cannot be empty";
     if (n != A.get_num_cols())
-        throw "Matrix must be square"; 
+        throw std::invalid_argument("Matrix must be square");
 
     // elimination code
-    for (int k = 0, r = 0; k < n; k++, r++) {
+    for (int k = 0, r = 0; k < n; k++, r++) 
+    {
         // check that this entry is not zero as pivots cannot be zero
-        if (A[r][k] != 0) {
+        if (A[r][k] != 0) 
+        {
             double pivot = A[r][k];
 
+            # pragma omp parallel
+            # pragma omp for 
             // eliminate entries below the pivot
-            for (int i = r + 1; i < n; i++) {
+            for (int i = r + 1; i < n; i++) 
+            {
                 double multiplier = A[i][k] / pivot;
 
                 // if the multiplier is zero this for loop does no work
-                if (multiplier != 0) {
+                if (multiplier != 0) 
+                {
                     // do the row subtraction
                     for (int j = 0; j < n; j++) {
                         A[i][j] = A[i][j] - multiplier * A[r][j];
@@ -40,11 +49,14 @@ void gauss_elim_square_in_place(Matrix& A)
                 }
             }
         }
-        else {
+        else 
+        {
             // try to find a pivot in other rows of column k
             int i;
-            for (i = r + 1; i < n; i++) {
-                if (A[i][k] != 0) {
+            for (i = r + 1; i < n; i++) 
+            {
+                if (A[i][k] != 0) 
+                {
                     // swap rows of the matrix
                     A.swap_rows(r, i); 
 
@@ -72,7 +84,7 @@ void gauss_elim_square_in_place(Matrix& A)
     18.3011	   18.6141	   13.1689	    6.6432	    9.8854	
     0.7692	   18.4410	   18.2696	   15.0529	   10.7585
      
-The values of the array are now
+After calling the function the matrix object holds the values below.
 
     3.6578	    4.3459	    6.6881	   10.1399	    0.9815	
     0.0000	   13.8197	   -2.3453	   16.0833	   14.7515	

@@ -11,22 +11,22 @@
 **Output:** This routine returns the row echelon form of the matrix as an instance of
 the aforementioned Matrix class.   
 
+**Exceptions:** Throws `std::invalid_argument` if the matrix given is not square.
+
 **Implementation/Code:** The following is the code for gauss_elim_square. 
 ```C++ 
 Matrix gauss_elim_square(Matrix& A) {
-    if (A.get_num_rows() == 0)
-        throw "Matrix cannot be empty";
     if (A.get_num_rows() != A.get_num_cols())
-	throw "Matrix must be square";
+        throw std::invalid_argument("Matrix must be square");
    
-    // copy the matrix and pass it to the in place Gaussian elimination function  
+    // Make a copy of the matrix and pass it to the in place Gaussian elimination function  
     Matrix out = A; 
-
     gauss_elim_square_in_place(out); 
     return out; 
 }
 ```
 
+**Dependencies:**
 * `gauss_elim_in_place` code [here](./gauss_elim_in_place.md)
 
 **Usage/Example:** Sample output when the matrix below is passed as input.  

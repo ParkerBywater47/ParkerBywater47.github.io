@@ -17,7 +17,7 @@ Matrix::~Matrix() {
 }
 
 Matrix::Matrix(const Matrix& mat) {
-    std::cout << "just want to make sure this doesn't get called" << std::endl;
+    std::cout << "Matrix copy constructor called" << std::endl;
     num_rows_ = mat.num_rows_;
     num_cols_ = mat.num_cols_; 
     this->data = new double*[mat.num_rows_]; 
