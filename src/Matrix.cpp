@@ -1,7 +1,14 @@
 #include "Matrix.hpp"
 #include <iostream>
 
-Matrix::Matrix(int num_rows, int num_cols): num_rows_(num_rows), num_cols_(num_cols){}
+Matrix::Matrix(int num_rows, int num_cols): num_rows_(num_rows), num_cols_(num_cols)
+{  
+    this->data = new double*[num_rows_] ;
+    for (int i = 0; i < num_rows_; i++)
+    {
+        this->data[i] = new double[num_cols_]; 
+    } 
+}
 
 Matrix::Matrix(int num_rows, int num_cols, double * ptr_to_first): num_rows_(num_rows), num_cols_(num_cols)
 {
@@ -30,11 +37,11 @@ Matrix::Matrix(const Matrix& mat) {
     }
 }
 
-const int Matrix::get_num_rows() {
+int Matrix::get_num_rows() const {
     return num_rows_;
 }
 
-const int Matrix::get_num_cols() {
+int Matrix::get_num_cols() const {
     return this->num_cols_; 
 }
 

@@ -2,35 +2,40 @@
 
 **Author:** Parker Bywater
 
-**Language:** C++. This can be compiled using an appropriate C++ compiler. 
+**Language:** C++
 
-**Description/Purpose:** This routine computes the LU-factorization of a square matrix.  
+**Description/Purpose:** This routine computes the LU-factorization of a square matrix. It does so assuming that the matrix is nonsigular. This is because life gets very hard when your matrices are singular. 
 
-**Input:** A square matrix and two empty matrices to store L and U.  
+**Input:** A square nonsingular matrix.
  
-**Output:** This routine returns the LU-factorization of the matrix as two seperate entities.  
+**Output:** This routine returns the LU-factorization of the matrix as a pair of matrices with the first being L and the second being U.  
 
 **Implementation/Code:** The following is the code for LU. 
 ```C++
-void LU(Matrix& A, Matrix& L_out, Matrix& U_out)
+std::pair<Matrix, Matrix> LU(Matrix& A)
 { 
-    const int n = U.get_num_rows(); 
+    const int n = A.get_num_rows();  
+    Matrix L(n,n);
+    Matrix U(A); 
+
+    for (int i = 0, j = 0; i < n; i++, j++) { L[i][j] = 1.0; }
+
     for (int k = 0, r = 0; k < n; k++, r++) 
     {
-	if (U[r][k] != 0)   
-	{
-            double pivot = U[r][k];
-            for (int i = r + 1; i < n; i++) 
-	    {
-                double multiplier = U[i][k] / pivot;
-                for (int j = 0; j < n; j++)
-		{
-                    U[i][j] = U[i][j] - multiplier * U[r][j];
-                }
-                L[i][k] = multiplier;
+        double pivot = U[r][k];
+        #pragma omp parallel 
+        #pragma omp for
+        for (int i = r + 1; i < n; i++) 
+        {
+            double multiplier = U[i][k] / pivot;
+            for (int j = 0; j < n; j++)
+            {
+                U[i][j] = U[i][j] - multiplier * U[r][j];
             }
+            L[i][k] = multiplier;
         }
     }
+    return std::pair<Matrix, Matrix>{L, U};
 }  
 ```
 

@@ -2,14 +2,14 @@
 
 **Author:** Parker Bywater
 
-**Language:** C++. This can be compiled using an appropriate C++ compiler. 
+**Language:** C++ 
 
 **Description/Purpose:** This routine multiplies a matrix and a vector with the matrix on the left.
 In math language, it computes Ax where A is the matrix and x is the vector. 
 
 **Input:** The matrix and vector to be multiplied and a place to store the result. The Matrix object is an instance of this [Matrix class](../src/Matrix.cpp).
  
-**Output:** This routine writes the result of Ax to the parameter 'out'.  
+**Output:** This routine writes the result of A\*x to the parameter 'out'.  
 
 **Implementation/Code:** The following is the code for left\_matrix\_vector\_mult\_. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
 must be included and you must use the `-fopenmp` option when compiling.   

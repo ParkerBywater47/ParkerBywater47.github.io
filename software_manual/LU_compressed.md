@@ -2,40 +2,43 @@
 
 **Author:** Parker Bywater
 
-**Language:** C++. This can be compiled using an appropriate C++ compiler. 
+**Language:** C++
 
 **Description/Purpose:** This routine computes the LU-factorization of a matrix and stores it in a 
-single matrix. Read the output section below for more.  
+single matrix to save storage space. Read the output section below for more.  
 
-**Input:** A square matrix.  
+**Input:** A square matrix which is an instance of this [Matrix class](../src/Matrix.cpp). 
  
-**Output:** This routine returns the important bits of the LU-factorization of the matrix given. Specifically, 
-the 2-dimensional array given is overwritten with a matrix where the lower-triangular entries of the matrix are 
-identical to the lower-triangular entries of L while the diagonal and upper-triangular entries are identical to U.  
+**Output:** This routine returns a matrix which is a compressed representation of the LU-factorization. This representation essentially merges L and U into one matrix by replacing entries that are always 0 or 1 by the definition of the LU-factorization. This is best understood by looking at the example given at the bottom of the page.
 
-**Implementation/Code:** The following is the code for LU_compressed
+**Implementation/Code:** The following is the code for LU_compressed. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
+must be included and you must use the `-fopenmp` option when compiling.   
+ 
 ```C++ 
-void LU_compressed(Matrix& A) 
+#include <omp.h>
+
+Matrix LU_compressed(const Matrix& A) 
 {
     const int n = A.get_num_rows();
-    for (int k = 0, r = 0; k < n; k++, r++) {
-        // try to find a pivot in the first column
-        if (A[r][k] != 0)
-	{
-            double pivot = A[r][k];
-            for (int i = r + 1; i < n; i++) 
-	    {
-                double multiplier = A[i][k] / pivot;                                               
+    Matrix out(A); 
 
-                // A[r] = A[r] - multiplier * A[r-1]
-                for (int j = k; j < n; j++) 
-		{
-                    A[i][j] = A[i][j] - multiplier * A[r][j];                                        
-                }
-                A[i][k] = multiplier;
+    for (int k = 0, r = 0; k < n; k++, r++) 
+    {
+        double pivot = out[r][k];
+        #pragma omp parallel for
+        for (int i = r + 1; i < n; i++) 
+        {
+            double multiplier = out[i][k] / pivot;                                               
+
+            // A[r] = A[r] - multiplier * A[r-1]
+            for (int j = k; j < n; j++) 
+            {
+                out[i][j] = out[i][j] - multiplier * out[r][j];                                        
             }
+            out[i][k] = multiplier;
         }
     } 
+    return out; 
 }
 ```
 
@@ -71,6 +74,6 @@ and U =
     0.0000	    0.0000	    0.0000	  -85.5213	   -2.6918	
     0.0000	    0.0000	    0.0000	    0.0000	   -5.1434
 
-As you can see, the diagonal and above is identical to U while everything below the diagonal is identical to L. 
+As you can see, the diagonal and above is identical to U while everything below the diagonal is identical to L.
    
 **Last Modified:** 11/9/19

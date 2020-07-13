@@ -2,7 +2,59 @@
 #include "LinAlg.hpp"
 #include <stdexcept>
 #include <omp.h>
+#include <utility>
 
+#include <iostream>
+
+Matrix LU_compressed(const Matrix& A) 
+{
+    const int n = A.get_num_rows();
+    Matrix out(A); 
+
+    for (int k = 0, r = 0; k < n; k++, r++) 
+    {
+        double pivot = out[r][k];
+        #pragma omp parallel for
+        for (int i = r + 1; i < n; i++) 
+        {
+            double multiplier = out[i][k] / pivot;                                               
+
+            // A[r] = A[r] - multiplier * A[r-1]
+            for (int j = k; j < n; j++) 
+            {
+                out[i][j] = out[i][j] - multiplier * out[r][j];                                        
+            }
+            out[i][k] = multiplier;
+        }
+    } 
+    return out; 
+}
+
+std::pair<Matrix, Matrix> LU(Matrix& A)
+{ 
+    const int n = A.get_num_rows();  
+    Matrix L(n,n);
+    Matrix U(A); 
+
+    for (int i = 0, j = 0; i < n; i++, j++) { L[i][j] = 1.0; }
+
+    for (int k = 0, r = 0; k < n; k++, r++) 
+    {
+        double pivot = U[r][k];
+        #pragma omp parallel 
+        #pragma omp for
+        for (int i = r + 1; i < n; i++) 
+        {
+            double multiplier = U[i][k] / pivot;
+            for (int j = 0; j < n; j++)
+            {
+                U[i][j] = U[i][j] - multiplier * U[r][j];
+            }
+            L[i][k] = multiplier;
+        }
+    }
+    return std::pair<Matrix, Matrix>{L, U};
+}  
 
 inline double dot_product(double vec1[], double vec2[], const int n) 
 {
@@ -99,3 +151,9 @@ Matrix gauss_elim_square(Matrix& A) {
     gauss_elim_square_in_place(out); 
     return out; 
 }
+
+
+
+
+
+

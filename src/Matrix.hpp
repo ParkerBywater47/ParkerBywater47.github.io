@@ -15,8 +15,8 @@ class Matrix {
 	Matrix(const Matrix& mat); 
         ~Matrix(); 
 
-        const int get_num_rows();
-        const int get_num_cols(); 
+        int get_num_rows() const;
+        int get_num_cols() const; 
         void swap_rows(int, int); 
 
         void print();
