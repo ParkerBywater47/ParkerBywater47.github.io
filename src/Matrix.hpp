@@ -21,6 +21,7 @@ class Matrix {
 
         void print();
         double * operator[](int i);
+        const double * operator[](int i) const;
 };
 
 

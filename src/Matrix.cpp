@@ -68,6 +68,10 @@ double * Matrix::operator[](int i) {
     return data[i]; 
 }
 
+const double * Matrix::operator[](int i) const {
+    return data[i]; 
+}
+
 void Matrix::print()
 {
     for (int i = 0; i < this->num_rows_; i++)

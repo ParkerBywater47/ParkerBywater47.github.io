@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+
 void LU_compressed_in_place(Matrix& A) 
 {
     const int n = A.get_num_rows();
@@ -78,13 +79,6 @@ std::pair<Matrix, Matrix> LU(Matrix& A)
     return std::pair<Matrix, Matrix>{L, U};
 }  
 
-inline double dot_product(double vec1[], double vec2[], const int n) 
-{
-    double sum = 0;
-    for (int i = 0; i < n; i++)
-        sum += vec1[i] * vec2[i]; 
-    return sum;
-}
 
 
 void left_matrix_vector_mult(Matrix& A, double x[], double out[])
@@ -120,9 +114,9 @@ void gauss_elim_square_in_place(Matrix& A)
         {
             double pivot = A[r][k];
 
+            // eliminate entries below the pivot
             # pragma omp parallel
             # pragma omp for 
-            // eliminate entries below the pivot
             for (int i = r + 1; i < n; i++) 
             {
                 double multiplier = A[i][k] / pivot;
