@@ -37,8 +37,7 @@ inline void square_solver(const Matrix& A, double b[], double out[])
 ```
 
 **Dependencies:** 
-* `gauss_elim_in_place` code [here](../src/gauss_elim_in_place.md)
-* `up_triangular_back_sub` code [here](../src/up_triangular_back_sub.md). 
+* `square_solver_in_place` code [here](./square_solver_in_place.md)
 
 **Usage/Example:** Sample output for the matrix A = 
 

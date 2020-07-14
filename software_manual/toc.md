@@ -34,8 +34,8 @@ into a new matrix to not alter the given data if necessary.
     * [Memory Hog](./LU.md) 
 * [Diagonal Solver](./diagonal_solver.md) - Solves a (square) diagonal system of linear equations. 
 * Square System Solver - Solves a square system of linear equations. Again, there is both an in place version and a copy version.
-    * [Copy](../src/square_solver.md)    
-    * [In-place](../src/square_solver_in_place.md)
+    * [Copy](./square_solver.md)    
+    * [In-place](./square_solver_in_place.md)
 * [LU Solver](./LU_solver.md) - Solves a square system of linear equations given the LU-factorization of the coeffecient matrix. 
 
 <!-- 

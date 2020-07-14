@@ -9,7 +9,7 @@ back substitution without using extra storage space. As a consequence the value 
 naiively, that is, it assumes the matrix is not singular and doesn't attempt row swaps.  
 
 **Input:** A matrix, a vector, and a memory location to write the solution. The matrix 
-should be an instance of [this](./Matrix.cpp) Matrix class
+should be an instance of [this](../src/Matrix.cpp) Matrix class
 and the vector should be an array.  
 
 **Output:** This routine returns the solution of the system by writing the result to the `out` 
@@ -45,7 +45,7 @@ void square_solver_in_place(Matrix& A, double b[], double out[])
 }
 ```
 **Dependencies:**
-* `up_triangular_back_sub` code [here](../src/up_triangular_back_sub.md). 
+* `up_triangular_back_sub` code [here](./up_triangular_back_sub.md). 
 
 **Usage/Example:** Sample output for the matrix A = 
 
