@@ -21,22 +21,18 @@ method for fast convergence and the bisection method to guarantee convergence.
 Many of these routines use a Matrix class I defined. It's essentially a nice container for two-dimensional arrays. The source is [here](../src/Matrix.cpp).  
 * [Dot Product](./dot_product.md) - Computes the dot product of two vectors. 
 * [Cross Product](./cross_product.md) - Computes the cross product of two three-dimensional vectors. Someday I'll implement the seven-dimensional cross product [(check out the 7D-cross product)](https://en.wikipedia.org/wiki/Seven-dimensional_cross_product#Coordinate_expressions). 
-
 * [Matrix-Vector Multiplication](./left_matrix_vector_mult.md) - Computes Ax where A is a matrix and x is a vector. 
 * [SAXPY](./saxpy.md) - Computes single-precision a\*x + y where a is a scalar and x and y are vectors. 
-
 * Gaussian Elimination - Performs Gaussian elimination on a square matrix. My library includes an
 in-place implementation (to save memory) and an implementation that initially copies the matrix given
 into a new matrix to not alter the given data if necessary. 
     * [In-place](./gauss_elim_square_in_place.md)
     * [Memory Hog](./gauss_elim_square.md)
-* LU-factorization - Computes the LU-factorization of a square matrix. Like before I have both an in-place implementation and an implementation which copies the data given. But, the in-place implementation 
-used here is a compressed storage version of the LU-factorization of a matrix. Given that the diagonal entries of the lower-triangular matrix are always 1, we can "merge" L and U into one matrix that stores
-the important information of the LU-factorization.  
+* LU-factorization - Computes the LU-factorization of a square matrix. There are two different versions of this. One stores the result in two separate matrices and the other stores the result in one matrix by not storing unimportant information of the LU-factorization. This compressed storage version has both an in-place and copy implementation.  
     * [Compressed Storage](./LU_compressed.md)
+    * [Compressed Storage In Place](./LU_compressed_in_place.md)
     * [Memory Hog](./LU.md) 
-
-* [Diagonal Solver](./diagonal_solver.md) - Solves a diagonal system of linear equations. 
+* [Diagonal Solver](./diagonal_solver.md) - Solves a (square) diagonal system of linear equations. 
 * [Square Solver](./square_solver.md) - Solves a square system of linear equations. 
 * [LU Solver](./LU_solver.md) - Solves a square system of linear equations given the LU-factorization of the coeffecient matrix. 
 
