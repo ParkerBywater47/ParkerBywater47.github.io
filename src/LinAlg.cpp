@@ -7,6 +7,53 @@
 #include <iostream>
 
 
+void square_solver_in_place(Matrix& A, double b[], double out[]) 
+{
+    if (A.get_num_rows() != A.get_num_cols()) 
+	throw std::invalid_argument("A must be a square matrix");
+    
+    const int n = A.get_num_rows(); 
+    # pragma omp parallel for
+    for (int k = 0, r = 0; k < n; k++, r++) 
+    {
+        double pivot = A[r][k];
+        for (int i = r + 1; i < n; i++) 
+        {
+            double multiplier = A[i][k] / pivot;
+            for (int j = 0; j < n; j++) 
+            {
+                A[i][j] = A[i][j] - multiplier * A[r][j];
+            }
+            b[i] = b[i] - multiplier * b[r];
+        }
+    }
+    // determines the solution and writes it to out
+    up_triangular_back_sub(A, b, out); 
+}
+
+void up_triangular_back_sub(const Matrix& A, double b[], double out[]) 
+{
+//    if (A.get_num_rows() == 0)
+//        throw "A must be a nonempty matrix";
+//    else if (A.get_num_rows() != A.get_num_cols()) 
+//	throw "A must be a square matrix";
+    
+    const int n = A.get_num_rows(); 
+
+    out[n - 1] = b[n - 1] / A[n - 1][n - 1];
+    for (int i = n - 2; i >= 0; i--) 
+    {
+	// some_sum really is a bad name but it's better than 
+	// 'sum of the products of previously computed entries of x and coeffecients of A'
+        double some_sum = 0;
+        for (int j = i + 1; j < n; j++)
+        {
+            some_sum += A[i][j] * out[j];
+        }
+        out[i] = (b[i] - some_sum) / A[i][i];
+    }
+}
+
 void LU_compressed_in_place(Matrix& A) 
 {
     const int n = A.get_num_rows();

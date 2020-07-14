@@ -15,37 +15,37 @@ and the vector should be an array.
 **Output:** This routine returns the solution of the system by writing the result to the `out` 
 parameter.
 
+**Exceptions:** Throws `std::invalid_argument` if A is not square. 
+
 **Implementation/Code:** The following is the code for square_solver_in_place.
 ```C++ 
-void square_solver_in_place(Matrix& A, double b[], double out[]) {
-    if (A.get_num_rows() == 0)
-        throw "A must be a nonempty matrix";
-    else if (A.get_num_rows() != A.get_num_cols()) 
-	throw "A must be a square matrix"
+void square_solver_in_place(Matrix& A, double b[], double out[]) 
+{
+    if (A.get_num_rows() != A.get_num_cols()) 
+	throw std::invalid_argument("A must be a square matrix");
     
     const int n = A.get_num_rows(); 
-
+    # pragma omp parallel for
     for (int k = 0, r = 0; k < n; k++, r++) 
     {
-        if (A[r][k] != 0) 
-	{
-            double pivot = A[r][k];
-            for (int i = r + 1; i < n; i++) 
-	    {
-                double multiplier = A[i][k] / pivot;
-                for (int j = 0; j < A[r].length; j++) 
-		{
-                    A[i][j] = A[i][j] - multiplier * A[r][j];
-                }
-                b[i] = b[i] - multiplier * b[r];
+        double pivot = A[r][k];
+        for (int i = r + 1; i < n; i++) 
+        {
+            double multiplier = A[i][k] / pivot;
+            for (int j = 0; j < n; j++) 
+            {
+                A[i][j] = A[i][j] - multiplier * A[r][j];
             }
+            b[i] = b[i] - multiplier * b[r];
         }
     }
     // determines the solution and writes it to out
     up_triangular_back_sub(A, b, out); 
 }
+}
 ```
-The code for `up_triangular_back_sub` is located [here](./up_triangular_back_sub.md). 
+**Dependencies:**
+* `up_triangular_back_sub` code [here](../src/up_triangular_back_sub.md). 
 
 **Usage/Example:** Sample output for the matrix A = 
 

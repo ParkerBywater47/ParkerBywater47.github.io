@@ -28,12 +28,14 @@ in-place implementation (to save memory) and an implementation that initially co
 into a new matrix to not alter the given data if necessary. 
     * [In-place](./gauss_elim_square_in_place.md)
     * [Memory Hog](./gauss_elim_square.md)
-* LU-factorization - Computes the LU-factorization of a square matrix. There are two different versions of this. One stores the result in two separate matrices and the other stores the result in one matrix by not storing unimportant information of the LU-factorization. This compressed storage version has both an in-place and copy implementation.  
+* LU-factorization Routines - Computes the LU-factorization of a square matrix. There are two different versions of this. One stores the result in two separate matrices and the other stores the result in one matrix by not storing unimportant information of the LU-factorization. This compressed storage version has both an in-place and copy implementation.  
     * [Compressed Storage](./LU_compressed.md)
     * [Compressed Storage In Place](./LU_compressed_in_place.md)
     * [Memory Hog](./LU.md) 
 * [Diagonal Solver](./diagonal_solver.md) - Solves a (square) diagonal system of linear equations. 
-* [Square Solver](./square_solver.md) - Solves a square system of linear equations. 
+* Square System Solver - Solves a square system of linear equations. Again, there is both an in place version and a copy version.
+    * [Copy](../src/square_solver.md)    
+    * [In-place](../src/square_solver_in_place.md)
 * [LU Solver](./LU_solver.md) - Solves a square system of linear equations given the LU-factorization of the coeffecient matrix. 
 
 <!-- 

@@ -6,6 +6,27 @@
 #include <stdexcept>
 #include <utility>
 
+void up_triangular_back_sub(const Matrix& A, double b[], double out[]);
+
+void square_solver_in_place(Matrix& A, double b[], double out[]);
+
+inline void square_solver(const Matrix& A, double b[], double out[]) 
+{
+    if (A.get_num_rows() != A.get_num_cols())
+	throw std::invalid_argument("A must be a square matrix");
+
+    // copy the matrix and rhs vector
+    Matrix A_copy = A; 
+    double * b_copy = new double[A.get_num_rows()];
+    for (int i = 0; i < A.get_num_rows(); i++)
+        b_copy[i] = b[i];
+
+    // call the in place version with the copies
+    square_solver_in_place(A_copy, b_copy, out);
+    
+    // clean up memory 
+    delete[] b_copy; 
+}
 
 void left_matrix_vector_mult(Matrix& A, double x[], double out[]); 
 
@@ -39,6 +60,17 @@ inline void diagonal_solver(const Matrix& A, double b[], double out[])
 } 
 
 
+void square_solver(const Matrix& A, double b[], double out[]) ;
+//{
+//    // copy the Matrix  
+//    Matrix copy = A;
+//
+//    // do elimination on the copied matrix
+//    gauss_elim_square_in_place(copy); 
+//
+//    // call function which back-substitutes to get the solution
+//    up_triangular_back_sub(copy, b, out);
+//}
 
 
 
