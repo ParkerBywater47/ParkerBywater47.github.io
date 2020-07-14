@@ -8,30 +8,31 @@
  equations.  
 
 **Input:** A (square) upper triangular matrix, a vector, and a memory location to write the solution.
-The matrix should be an instance of [this](./Matrix.cpp) Matrix class and the vector should be an 
+The matrix should be an instance of [this](../src/Matrix.cpp) Matrix class and the vector should be an 
 array.  
 
 **Output:** This routine writes the solution of the system to the `out` parameter. 
 
+**Exceptions:** Throws `std::invalid_argument` if A is not square.
+
 **Implementation/Code:** The following is the code for up_triangular_back_sub.
 ```C++ 
-void up_triangular_back_sub(const Matrix& A, double b[], double out[]) {
-    if (A.get_num_rows() == 0)
-        throw "A must be a nonempty matrix";
-    else if (A.get_num_rows() != A.get_num_cols()) 
-	throw "A must be a square matrix"
+void up_triangular_back_sub(const Matrix& A, double b[], double out[]) 
+{
+    if (A.get_num_rows() != A.get_num_cols())
+        throw std::invalid_argument("Matrix must be square");
     
     const int n = A.get_num_rows(); 
 
-    x[n] = b[n] / A[n][n];
-    for (int i = n - 2; i >= 0; i--) {
-	// some_sum really is a bad name but it's better than 
-	// 'sum of the products of previously computed entries of x and coeffecients of A'
+    out[n - 1] = b[n - 1] / A[n - 1][n - 1];
+    for (int i = n - 2; i >= 0; i--) 
+    {
         double some_sum = 0;
-        for (int j = i + 1; j < A.length; j++)
-            thatSum += A[i][j] * x[j];
-        x[i] = (b[i] - thatSum) / A[i][i];
-
+        for (int j = i + 1; j < n; j++)
+        {
+            some_sum += A[i][j] * out[j];
+        }
+        out[i] = (b[i] - some_sum) / A[i][i];
     }
 }
 ```

@@ -33,10 +33,8 @@ void square_solver_in_place(Matrix& A, double b[], double out[])
 
 void up_triangular_back_sub(const Matrix& A, double b[], double out[]) 
 {
-//    if (A.get_num_rows() == 0)
-//        throw "A must be a nonempty matrix";
-//    else if (A.get_num_rows() != A.get_num_cols()) 
-//	throw "A must be a square matrix";
+    if (A.get_num_rows() != A.get_num_cols())
+        throw std::invalid_argument("Matrix must be square");
     
     const int n = A.get_num_rows(); 
 
