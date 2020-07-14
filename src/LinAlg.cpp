@@ -6,27 +6,49 @@
 
 #include <iostream>
 
-Matrix LU_compressed(const Matrix& A) 
+void LU_compressed_in_place(Matrix& A) 
 {
     const int n = A.get_num_rows();
-    Matrix out(A); 
 
     for (int k = 0, r = 0; k < n; k++, r++) 
     {
-        double pivot = out[r][k];
+        double pivot = A[r][k];
         #pragma omp parallel for
         for (int i = r + 1; i < n; i++) 
         {
-            double multiplier = out[i][k] / pivot;                                               
+            double multiplier = A[i][k] / pivot;                                               
 
             // A[r] = A[r] - multiplier * A[r-1]
             for (int j = k; j < n; j++) 
             {
-                out[i][j] = out[i][j] - multiplier * out[r][j];                                        
+                A[i][j] = A[i][j] - multiplier * A[r][j];                                        
             }
-            out[i][k] = multiplier;
+            A[i][k] = multiplier;
         }
     } 
+}
+
+Matrix LU_compressed(const Matrix& A) 
+{
+    Matrix out(A);
+    LU_compressed_in_place(out);
+
+//    for (int k = 0, r = 0; k < n; k++, r++) 
+//    {
+//        double pivot = out[r][k];
+//        #pragma omp parallel for
+//        for (int i = r + 1; i < n; i++) 
+//        {
+//            double multiplier = out[i][k] / pivot;                                               
+//
+//            // A[r] = A[r] - multiplier * A[r-1]
+//            for (int j = k; j < n; j++) 
+//            {
+//                out[i][j] = out[i][j] - multiplier * out[r][j];                                        
+//            }
+//            out[i][k] = multiplier;
+//        }
+//    } 
     return out; 
 }
 

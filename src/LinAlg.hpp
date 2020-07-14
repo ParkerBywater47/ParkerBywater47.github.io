@@ -14,6 +14,8 @@ Matrix gauss_elim_square(Matrix&);
 
 std::pair<Matrix, Matrix> LU(Matrix& A);
 
-Matrix LU_compressed(const Matrix& A) ;
+Matrix LU_compressed(const Matrix& A);
+
+void LU_compressed_in_place(Matrix& A);
 
 #endif

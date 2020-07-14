@@ -1,4 +1,4 @@
-**Routine Name:** LU_compressed
+**Routine Name:** LU_compressed_in_place
 
 **Author:** Parker Bywater
 
@@ -11,18 +11,32 @@ single matrix to save storage space. Read the output section below for more.
  
 **Output:** This routine returns a matrix which is a compressed representation of the LU-factorization. This representation essentially merges L and U into one matrix by replacing entries that are always 0 or 1 by the definition of the LU-factorization. This is best understood by looking at the example given at the bottom of the page.
 
-**Implementation/Code:** The following is the code for LU_compressed. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
+**Implementation/Code:** The following is the code for LU_compressed_in_place. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
 must be included and you must use the `-fopenmp` option when compiling.   
  
 ```C++ 
 #include <omp.h>
 
-Matrix LU_compressed(const Matrix& A) 
+void LU_compressed_in_place(Matrix& A) 
 {
-    // make a copy and pass it to in place version
-    Matrix out(A);
-    LU_compressed_in_place(out);
-    return out; 
+    const int n = A.get_num_rows();
+
+    for (int k = 0, r = 0; k < n; k++, r++) 
+    {
+        double pivot = A[r][k];
+        #pragma omp parallel for
+        for (int i = r + 1; i < n; i++) 
+        {
+            double multiplier = A[i][k] / pivot;                                               
+
+            // A[r] = A[r] - multiplier * A[r-1]
+            for (int j = k; j < n; j++) 
+            {
+                A[i][j] = A[i][j] - multiplier * A[r][j];                                        
+            }
+            A[i][k] = multiplier;
+        }
+    } 
 }
 ```
 
