@@ -7,16 +7,16 @@
 #include <iostream>
 
 
-void square_solver_in_place(Matrix& A, double b[], double out[]) 
+void square_solve_in_place(Matrix& A, double b[], double out[]) 
 {
     if (A.get_num_rows() != A.get_num_cols()) 
 	throw std::invalid_argument("A must be a square matrix");
     
     const int n = A.get_num_rows(); 
-    # pragma omp parallel for
     for (int k = 0, r = 0; k < n; k++, r++) 
     {
         double pivot = A[r][k];
+        #pragma omp parallel for
         for (int i = r + 1; i < n; i++) 
         {
             double multiplier = A[i][k] / pivot;

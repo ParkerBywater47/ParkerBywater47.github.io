@@ -32,11 +32,11 @@ into a new matrix to not alter the given data if necessary.
     * [Compressed Storage](./LU_compressed.md)
     * [Compressed Storage In Place](./LU_compressed_in_place.md)
     * [Memory Hog](./LU.md) 
-* [Diagonal Solver](./diagonal_solver.md) - Solves a (square) diagonal system of linear equations. 
+* [Diagonal Solver](./diagonal_solve.md) - Solves a (square) diagonal system of linear equations. 
 * Square System Solver - Solves a square system of linear equations. Again, there is both an in place version and a copy version.
-    * [Copy](./square_solver.md)    
-    * [In-place](./square_solver_in_place.md)
-* [LU Solver](./LU_solver.md) - Solves a square system of linear equations given the LU-factorization of the coeffecient matrix. 
+    * [Copy](./square_solve.md)    
+    * [In-place](./square_solve_in_place.md)
+* [LU Solver](./LU_solve.md) - Solves a square system of linear equations given the LU-factorization of the coeffecient matrix. 
 
 <!-- 
 * [Jacobi Iteration](./jacobi.md) - Solves a square stricly diagonally dominant system of linear equations iteratively using the Jacobi method. 

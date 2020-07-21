@@ -2,7 +2,7 @@
 
 **Author:** Parker Bywater
 
-**Language:** C++. This can be compiled using an appropriate C++ compiler. 
+**Language:** C++
 
 **Description/Purpose:** This routine solves a square linear system of equations using Gaussian elimination and 
 back substitution without using extra storage space. As a consequence the value of the arguments passed can not be guaranteed to remain unchanged. Also, this routine performs the gaussian elimination 
@@ -25,10 +25,10 @@ void square_solver_in_place(Matrix& A, double b[], double out[])
 	throw std::invalid_argument("A must be a square matrix");
     
     const int n = A.get_num_rows(); 
-    # pragma omp parallel for
     for (int k = 0, r = 0; k < n; k++, r++) 
     {
         double pivot = A[r][k];
+        # pragma omp parallel for
         for (int i = r + 1; i < n; i++) 
         {
             double multiplier = A[i][k] / pivot;

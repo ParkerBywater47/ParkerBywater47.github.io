@@ -6,25 +6,24 @@
 #include <stdexcept>
 #include <utility>
 
-
-//inline void LU_solve(Matrix& L, Matrix& U, double b[], double out[]) 
-//{
-//    // solve Lc = b 
-//    double * c = new double[n]; 
-//    lower_triangular_fwd_sub(L, b, c); 
-//
-//    // solve Ux = c
-//    up_triangular_back_sub(U, c, x);  
-//    delete[] c; 
-//}
-
 void lower_triangular_fwd_sub(Matrix& A, double b[], double out[]); 
 
 void up_triangular_back_sub(const Matrix& A, double b[], double out[]);
 
-void square_solver_in_place(Matrix& A, double b[], double out[]);
+inline void LU_solve(Matrix& L, Matrix& U, double b[], double out[]) 
+{
+    // solve Lc = b 
+    double * c = new double[L.get_num_rows()]; 
+    lower_triangular_fwd_sub(L, b, c); 
 
-inline void square_solver(const Matrix& A, double b[], double out[]) 
+    // solve Ux = c
+    up_triangular_back_sub(U, c, out);  
+    delete[] c; 
+}
+
+void square_solve_in_place(Matrix& A, double b[], double out[]);
+
+inline void square_solve(const Matrix& A, double b[], double out[]) 
 {
     if (A.get_num_rows() != A.get_num_cols())
 	throw std::invalid_argument("A must be a square matrix");
@@ -36,7 +35,7 @@ inline void square_solver(const Matrix& A, double b[], double out[])
         b_copy[i] = b[i];
 
     // call the in place version with the copies
-    square_solver_in_place(A_copy, b_copy, out);
+    square_solve_in_place(A_copy, b_copy, out);
     
     // clean up memory 
     delete[] b_copy; 
