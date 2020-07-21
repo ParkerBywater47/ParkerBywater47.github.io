@@ -13,7 +13,9 @@ the data stored in the arguments given.
 
 **Exceptions:** Throws `std::invalid_argument` if the matrix given is not square.
 
-**Implementation/Code:** The following is the code for gauss_elim_square_in_place.
+**Implementation/Code:** The following is the code for gauss_elim_square_in_place. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
+must be included and you must use the `-fopenmp` option when compiling.   
+
 
 ```C++ 
 #include <stdexcept>

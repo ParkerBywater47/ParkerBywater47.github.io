@@ -15,8 +15,6 @@ single matrix to save storage space. Read the output section below for more.
 must be included and you must use the `-fopenmp` option when compiling.   
  
 ```C++ 
-#include <omp.h>
-
 Matrix LU_compressed(const Matrix& A) 
 {
     // make a copy and pass it to in place version
@@ -25,6 +23,7 @@ Matrix LU_compressed(const Matrix& A)
     return out; 
 }
 ```
+**Dependencies:** `LU_compressed_in_place` code [here](./LU_compressed_in_place.md)
 
 **Usage/Example:** Sample output with A = 
 

@@ -31,6 +31,25 @@ void square_solver_in_place(Matrix& A, double b[], double out[])
     up_triangular_back_sub(A, b, out); 
 }
 
+void lower_triangular_fwd_sub(Matrix& A, double b[], double out[]) 
+{
+    if (A.get_num_rows() != A.get_num_cols()) 
+	throw std::invalid_argument("Matrix must be square");
+
+    const int n = A.get_num_rows();
+
+    out[0] = b[0] / A[0][0];
+    for (int i = 1; i < n; i++)
+    {
+	// some_sum really is a bad name but it's better than 
+	// 'sum of the products of previously computed entries of x and coeffecients of A'
+        double some_sum = 0;
+        for (int j = i - 1; j >= 0; j--)
+            some_sum += A[i][j] * out[j];
+        out[i] = (b[i] - some_sum) / A[i][i];
+    }
+}
+
 void up_triangular_back_sub(const Matrix& A, double b[], double out[]) 
 {
     if (A.get_num_rows() != A.get_num_cols())

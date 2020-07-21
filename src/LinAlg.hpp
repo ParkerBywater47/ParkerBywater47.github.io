@@ -6,6 +6,20 @@
 #include <stdexcept>
 #include <utility>
 
+
+//inline void LU_solve(Matrix& L, Matrix& U, double b[], double out[]) 
+//{
+//    // solve Lc = b 
+//    double * c = new double[n]; 
+//    lower_triangular_fwd_sub(L, b, c); 
+//
+//    // solve Ux = c
+//    up_triangular_back_sub(U, c, x);  
+//    delete[] c; 
+//}
+
+void lower_triangular_fwd_sub(Matrix& A, double b[], double out[]); 
+
 void up_triangular_back_sub(const Matrix& A, double b[], double out[]);
 
 void square_solver_in_place(Matrix& A, double b[], double out[]);
@@ -48,7 +62,7 @@ inline double dot_product(double vec1[], double vec2[], const int n)
     return sum;
 }
 
-inline void diagonal_solver(const Matrix& A, double b[], double out[])  
+inline void diagonal_solve(const Matrix& A, double b[], double out[])  
 { 
     if (A.get_num_rows() != A.get_num_cols()) 
 	throw std::invalid_argument("Matrix must be square"); 

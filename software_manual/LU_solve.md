@@ -15,15 +15,15 @@ should be an array.
 
 **Implementation/Code:** The following is the code for LU\_solver.
 ```C++ 
-void LU_solver(Matrix& L, Matrix& U, double b[], double out[]) 
+inline void LU_solver(Matrix& L, Matrix& U, double b[], double out[]) 
 {
-    // solve Ly = b 
-    double *  y = new double[n]; 
-    lower_triangular_fwd_sub(L, b, y); 
+    // solve Lc = b 
+    double * c = new double[n]; 
+    lower_triangular_fwd_sub(L, b, c); 
 
-    // solve Ux = y
-    up_triangular_back_sub(U, y, x);  
-    delete[] y; 
+    // solve Ux = c
+    up_triangular_back_sub(U, c, x);  
+    delete[] c; 
 }
 ```
 

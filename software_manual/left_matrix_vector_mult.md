@@ -15,8 +15,6 @@ In math language, it computes Ax where A is the matrix and x is the vector.
 must be included and you must use the `-fopenmp` option when compiling.   
 
 ```C++
-#include <omp.h>
- 
 void left_matrix_vector_mult(Matrix& A, double x[], double out[])
 { 
     const int num_rows = A.get_num_rows(); 

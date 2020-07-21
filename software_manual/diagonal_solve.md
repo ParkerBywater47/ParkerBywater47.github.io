@@ -11,12 +11,13 @@ linear system of equations (Ax = b) where the coeffecient matrix is diagonal.
 should be an instance of [this](../src/Matrix.cpp) Matrix class
 and the vector should be an array. 
  
-**Output:** This routine returns the solution of the system by writing the result to the `out` 
-parameter.
+**Output:** This routine returns the solution of the system by writing the result to the `out` parameter.
+
+**Exceptions:** Throws `std::invalid_argument` if the matrix is not square. 
 
 **Implementation/Code:** The following is the code for diagonal_solver
 ```C++ 
-inline void diagonalSolver(const Matrix& A, double b[], double out[]) 
+inline void diagonal_solver(const Matrix& A, double b[], double out[]) 
 {
     if (A.get_num_rows() != A.get_num_cols()) 
 	throw std::invalid_argument("Matrix must be square"); 
