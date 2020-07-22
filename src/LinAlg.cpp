@@ -3,8 +3,154 @@
 #include <stdexcept>
 #include <omp.h>
 #include <utility>
+#include <math.h>
 
 #include <iostream>
+
+void square_solve_spp_in_place(Matrix& A, double b[], double out[])
+{
+    const int n = A.get_num_rows(); 
+
+    // compute the scale vector
+    double * scale_vec = new double[n];
+    # pragma omp parallel for
+    for (int i = 0; i < n; i++) 
+    {
+        double max = abs(A[i][0]);
+        for (int j = 1; j < n; j++) 
+        {
+            max = fmax(abs(A[i][j]), max);
+            scale_vec[i] = max;
+        }
+    }
+
+    // elimination and row swapping code  
+    for (int k = 0, r = 0; k < n; k++, r++) 
+    {
+        // compute the ratios for the column to determine the "largest" row
+        int largest_ratio_idx = r;
+        double largest_ratio = abs(A[largest_ratio_idx][k]) / scale_vec[r];
+        double curr_ratio;
+        for (int row_scan_idx = r + 1; row_scan_idx < n; row_scan_idx++) 
+        {
+            curr_ratio = abs(A[row_scan_idx][k]) / scale_vec[row_scan_idx];
+            if (curr_ratio > largest_ratio) 
+            {
+                largest_ratio = curr_ratio;
+                largest_ratio_idx = row_scan_idx;
+            }
+        }
+
+        // swap the current row with row at largest_ratio_idx
+        A.swap_rows(r, largest_ratio_idx); 
+//        double * rowTemp = U[r];
+//        U[r] = U[largest_ratio_idx];
+//        U[largest_ratio_idx] = rowTemp;
+       
+        // swap the entries in c as well
+        double temp = b[r];
+        b[r] = b[largest_ratio_idx];
+        b[largest_ratio_idx] = temp;
+
+        double pivot = A[r][k];
+        if (pivot != 0) {
+            # pragma omp parallel for 
+            for (int i = r + 1; i < n; i++) 
+            {
+                double multiplier = A[i][k] / pivot;
+                // U[r] = U[r] - multiplier * U[r-1]
+                for (int j = 0; j < n; j++) 
+                {
+                    A[i][j] = A[i][j] - multiplier * A[r][j];
+                }
+                b[i] = b[i] - multiplier * b[r];
+            }
+        }
+    }
+    up_triangular_back_sub(A, b, out);
+
+    // clean up memory
+    delete[] scale_vec; 
+}
+
+void square_solve_spp(const Matrix& A, const double b[], double out[])
+{
+    // initialize U and copy the values of A into it
+    Matrix U = A;  
+
+    const int n = A.get_num_rows(); 
+
+    // make a copy of b 
+    double * c = new double[n];
+    # pragma omp parallel for 
+    for (int i = 0; i < n; i++)
+        c[i] = b[i];
+
+    square_solve_spp_in_place(U, c, out);
+
+//    // compute the scale vector
+//    double * scale_vec = new double[n];
+//    # pragma omp parallel for
+//    for (int i = 0; i < n; i++) 
+//    {
+//        double max = abs(U[i][0]);
+//        for (int j = 1; j < n; j++) 
+//        {
+//            max = fmax(abs(U[i][j]), max);
+//            scale_vec[i] = max;
+//        }
+//    }
+//
+//    // elimination and row swapping code  
+//    for (int k = 0, r = 0; k < n; k++, r++) 
+//    {
+//        // compute the ratios for the column to determine the "largest" row
+//        int largest_ratio_idx = r;
+//        double largest_ratio = abs(U[largest_ratio_idx][k]) / scale_vec[r];
+//        double curr_ratio;
+//        for (int row_scan_idx = r + 1; row_scan_idx < n; row_scan_idx++) 
+//        {
+//            curr_ratio = abs(U[row_scan_idx][k]) / scale_vec[row_scan_idx];
+//            if (curr_ratio > largest_ratio) 
+//            {
+//                largest_ratio = curr_ratio;
+//                largest_ratio_idx = row_scan_idx;
+//            }
+//        }
+//
+//        // swap the current row with row at largest_ratio_idx
+//        U.swap_rows(r, largest_ratio_idx); 
+////        double * rowTemp = U[r];
+////        U[r] = U[largest_ratio_idx];
+////        U[largest_ratio_idx] = rowTemp;
+//       
+//        // swap the entries in c as well
+//        double temp = c[r];
+//        c[r] = c[largest_ratio_idx];
+//        c[largest_ratio_idx] = temp;
+//
+//        double pivot = U[r][k];
+//        if (pivot != 0) 
+//        {
+//            # pragma omp parallel for 
+//            for (int i = r + 1; i < n; i++) 
+//            {
+//                double multiplier = U[i][k] / pivot;
+//                // U[r] = U[r] - multiplier * U[r-1]
+//                for (int j = 0; j < n; j++) 
+//                {
+//                    U[i][j] = U[i][j] - multiplier * U[r][j];
+//                }
+//                c[i] = c[i] - multiplier * c[r];
+//            }
+//        }
+//    }
+//    up_triangular_back_sub(U, c, out);
+
+    // clean up memory
+    delete[] c; 
+//    delete[] scale_vec; 
+}
 
 
 void square_solve_in_place(Matrix& A, double b[], double out[]) 

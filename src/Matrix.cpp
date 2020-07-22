@@ -1,4 +1,5 @@
 #include "Matrix.hpp"
+#include <omp.h>
 #include <iostream>
 
 Matrix::Matrix(int num_rows, int num_cols): num_rows_(num_rows), num_cols_(num_cols)
@@ -28,6 +29,7 @@ Matrix::Matrix(const Matrix& mat) {
     num_rows_ = mat.num_rows_;
     num_cols_ = mat.num_cols_; 
     this->data = new double*[mat.num_rows_]; 
+    #pragma omp parallel for
     for (int i = 0; i < num_rows_; i++)
     {
         this->data[i] = new double[mat.num_cols_];

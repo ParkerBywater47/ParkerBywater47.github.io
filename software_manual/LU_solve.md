@@ -1,4 +1,4 @@
-**Routine Name:** LU_solver
+**Routine Name:** LU_solve
 
 **Author:** Parker Bywater
 

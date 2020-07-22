@@ -1,4 +1,4 @@
-**Routine Name:** diagonal_solver 
+**Routine Name:** diagonal_solve 
 
 **Author:** Parker Bywater
 
@@ -15,14 +15,17 @@ and the vector should be an array.
 
 **Exceptions:** Throws `std::invalid_argument` if the matrix is not square. 
 
-**Implementation/Code:** The following is the code for diagonal_solver
+**Implementation/Code:** The following is the code for diagonal_solve. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
+must be included and you must use the `-fopenmp` option when compiling.   
+
 ```C++ 
-inline void diagonal_solver(const Matrix& A, double b[], double out[]) 
+inline void diagonal_solve(const Matrix& A, double b[], double out[]) 
 {
     if (A.get_num_rows() != A.get_num_cols()) 
 	throw std::invalid_argument("Matrix must be square"); 
 
     const int n = A.get_num_rows(); 
+    #pragma omp parallel for
     for (int i = 0; i < n; i++)
         out[i] = b[i] / A[i][i];
 }
