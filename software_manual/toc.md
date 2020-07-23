@@ -33,9 +33,11 @@ into a new matrix to not alter the given data if necessary.
     * [Compressed Storage In Place](./LU_compressed_in_place.md)
     * [Memory Hog](./LU.md) 
 * [Diagonal Solver](./diagonal_solve.md) - Solves a (square) diagonal system of linear equations. 
-* Square System Solver - Solves a square system of linear equations. Again, there is both an in place version and a copy version.
+* Square System Solvers - Four different implementations here: Two of them use scaled partial pivoting (SPP) to improve the numerical stability of the Gaussian elimination and back substitution method these use to determine the solution. The other two perform the Gaussian elimination more naiively and are thus more prone to numerical errors. These are however slightly faster. Both versions just described have an in-place and copy implementation.
     * [Copy](./square_solve.md)    
     * [In-place](./square_solve_in_place.md)
+    * [Scaled Partial Pivoting](./square_solve_spp.md)
+    * [Scaled Partial Pivoting In-place](./square_solve_spp_in_place.md)
 * [LU Solver](./LU_solve.md) - Solves a square system of linear equations given the LU-factorization of the coeffecient matrix. 
 
 <!-- 

@@ -10,8 +10,13 @@ void lower_triangular_fwd_sub(Matrix& A, double b[], double out[]);
 
 void up_triangular_back_sub(const Matrix& A, double b[], double out[]);
 
-void square_solve_spp(const Matrix& A, const double b[], double out[])
+void square_solve_spp_in_place(Matrix& A, double b[], double out[]); 
+
+inline void square_solve_spp(const Matrix& A, const double b[], double out[])
 {
+    if (A.get_num_rows() != A.get_num_cols())
+        throw std::invalid_argument("Matrix must be square");
+
     // initialize U and copy the values of A into it
     Matrix U = A;  
 
