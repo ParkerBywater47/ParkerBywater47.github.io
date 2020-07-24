@@ -6,6 +6,8 @@
 #include <stdexcept>
 #include <utility>
 
+std::pair<Matrix, Matrix> cholesky(const Matrix& A); 
+
 void lower_triangular_fwd_sub(Matrix& A, double b[], double out[]); 
 
 void up_triangular_back_sub(const Matrix& A, double b[], double out[]);

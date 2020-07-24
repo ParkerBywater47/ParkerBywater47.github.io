@@ -33,12 +33,13 @@ into a new matrix to not alter the given data if necessary.
     * [Compressed Storage In Place](./LU_compressed_in_place.md)
     * [Memory Hog](./LU.md) 
 * [Diagonal Solver](./diagonal_solve.md) - Solves a (square) diagonal system of linear equations. 
-* Square System Solvers - Four different implementations here: Two of them use scaled partial pivoting (SPP) to improve the numerical stability of the Gaussian elimination and back substitution method these use to determine the solution. The other two perform the Gaussian elimination more naiively and are thus more prone to numerical errors. These are however slightly faster. Both versions just described have an in-place and copy implementation.
+* Square System Solvers - Four different implementations here: Two of them use scaled partial pivoting (SPP) to improve the numerical stability of the Gaussian elimination and back substitution method these use to determine the solution. The other two perform the Gaussian elimination more naively and are thus more prone to numerical errors. These are however slightly faster. Both versions just described have an in-place and copy implementation.
     * [Copy](./square_solve.md)    
     * [In-place](./square_solve_in_place.md)
     * [Scaled Partial Pivoting](./square_solve_spp.md)
     * [Scaled Partial Pivoting In-place](./square_solve_spp_in_place.md)
 * [LU Solver](./LU_solve.md) - Solves a square system of linear equations given the LU-factorization of the coeffecient matrix. 
+* [Cholesky Factorization](./cholesky.md) - Computes the Cholesky factorization of a positive definite real-valued matrix.
 
 <!-- 
 * [Jacobi Iteration](./jacobi.md) - Solves a square stricly diagonally dominant system of linear equations iteratively using the Jacobi method. 

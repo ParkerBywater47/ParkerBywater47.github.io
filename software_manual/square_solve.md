@@ -5,7 +5,7 @@
 **Language:** C++
 
 **Description/Purpose:** This routine solves a square linear system of equations using Gaussian elimination and 
-back substitution. This routine performs the gaussian elimination naiively, that is, it assumes the matrix is not singular 
+back substitution. This routine performs the gaussian elimination naively, that is, it assumes the matrix is not singular 
 and does not make an attempt to swap rows.  
 
 **Input:** A square matrix, a right-hand side vector, and a memory location to store the result. The

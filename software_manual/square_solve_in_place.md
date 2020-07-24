@@ -6,7 +6,7 @@
 
 **Description/Purpose:** This routine solves a square linear system of equations using Gaussian elimination and 
 back substitution without using extra storage space. As a consequence the value of the arguments passed can not be guaranteed to remain unchanged. Also, this routine performs the gaussian elimination 
-naiively, that is, it assumes the matrix is not singular and doesn't attempt row swaps.  
+naively, that is, it assumes the matrix is not singular and doesn't attempt row swaps.  
 
 **Input:** A matrix, a vector, and a memory location to write the solution. The matrix 
 should be an instance of [this](../src/Matrix.cpp) Matrix class

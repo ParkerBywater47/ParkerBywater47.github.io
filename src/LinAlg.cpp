@@ -7,6 +7,53 @@
 
 #include <iostream>
 
+std::pair<Matrix, Matrix> cholesky(const Matrix& A) 
+{ 
+    const int n = A.get_num_rows();
+
+    // check that the matrix is symmetric
+    if (n != A.get_num_cols())
+        throw std::invalid_argument("Matrix must be square to be symmetric"); 
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i; j < n; j++)
+        {
+            if (A[i][j] != A[j][i])
+                throw std::invalid_argument("Matrix must be symmetric");
+        }
+    }
+
+    std::pair<Matrix, Matrix> out(Matrix(n,n), Matrix(n,n));
+    Matrix& L = out.first;
+    Matrix& L_trans = out.second;
+
+    // do special gaussian elimination
+    L[0][0] = sqrt(A[0][0]);
+    L_trans[0][0] = L[0][0];
+    for (int i = 1; i < n; i++) 
+    {
+        int j;
+        for (j = 0; j < i; j++) 
+        {
+            // compute the below diagonal entries
+            double sum0 = 0.0;
+            for (int k = 0; k < j; k++)
+                sum0 += L[i][k] * L[j][k];
+            L[i][j] = (A[i][j] - sum0) / L[j][j];
+            L_trans[j][i] = L[i][j]; 
+        }
+
+        // compute the diagonal entries
+        double sum1 = 0;
+        for (int k = 0; k < j; k++)
+            sum1 += L[j][k] * L[j][k];
+        L[j][j] = sqrt(A[j][j] - sum1);
+        L_trans[j][j] = L[j][j]; 
+    }
+    return out; 
+}    
+
 void square_solve_spp_in_place(Matrix& A, double b[], double out[])
 {
     if (A.get_num_rows() != A.get_num_cols())
