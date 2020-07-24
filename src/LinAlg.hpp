@@ -5,6 +5,20 @@
 #include "omp.h"
 #include <stdexcept>
 #include <utility>
+#include <math.h>
+
+
+inline double L2_norm(const double vec[], const int n) 
+{
+    double sum = 0;
+    for (int i = 0; i < n; i++)
+        sum += pow(vec[i], 2);
+    return sqrt(sum);
+}
+
+int gauss_seidel_iteration(const Matrix& A, const double b[], double initial_guess[], double tol, int max_iter, double out[]) ;
+
+int jacobi_iteration(const Matrix& A, const double b[], double initial_guess[], double tol, int max_iter, double out[]) ;
 
 std::pair<Matrix, Matrix> cholesky(const Matrix& A); 
 

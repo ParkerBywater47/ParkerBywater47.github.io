@@ -7,6 +7,97 @@
 
 #include <iostream>
 
+int gauss_seidel_iteration(const Matrix& A, const double b[], double initial_guess[], double tol, int max_iter, double out[]) 
+{
+    const int n = A.get_num_rows();
+
+    int iter = 0;
+    double err = 2 * tol;
+    double * curr = new double[n];
+    double * next = new double[n];
+
+    // make curr = initial_guess
+    for (int k = 0; k < n; k++)
+        curr[k] = initial_guess[k];
+
+    // make next = curr
+    for (int k = 0; k < n; k++)
+        next[k] = curr[k];
+
+    while (iter++ < max_iter && err > tol)
+    {
+        // cout << "curr @ iter: " << iter << endl;
+        // cout << "err = " << err << "\n" << endl;
+        for (int i = 0; i < n; i++)
+        {
+            double sum = 0.0;
+            for (int j = 0; j < n; j++)
+            {
+                if (i != j)
+                    sum += A[i][j] * next[j];
+            }
+            next[i] = (b[i] - sum) / A[i][i];
+        }
+
+        // update the error
+        err = fabs(L2_norm(next, n) - L2_norm(curr, n));
+
+        // make curr = next for next iteration
+        for (int k = 0; k < n; k++)
+            curr[k] = next[k];
+
+    }
+    // write the solution to out
+    for (int i = 0; i < n; i++)
+        out[i] = curr[i];
+
+    delete[] curr;
+    delete[] next; 
+    return iter; 
+}
+
+int jacobi_iteration(const Matrix& A, const double b[], double initial_guess[], double tol, int max_iter, double out[]) 
+{
+    const int n = A.get_num_rows();
+
+    int iter = 0;
+    double err = 2 * tol;
+    double * curr = new double[n];
+    double * next = new double[n];
+
+    // make curr = initial_guess
+    for (int k = 0; k < n; k++)
+        curr[k] = initial_guess[k];
+
+    while (iter++ < max_iter && err > tol) {
+        // cout << "curr @ iter: " << iter << endl;
+        // cout << "err = " << err << endl;
+        for (int i = 0; i < n; i++) 
+        {
+            double sum = 0.0;
+            for (int j = 0; j < n; j++) 
+            {
+                if (i != j)
+                    sum += A[i][j] * curr[j];
+            }
+            next[i] = (b[i] - sum) / A[i][i];
+        }
+        // update the error
+        err = fabs(L2_norm(next, n) - L2_norm(curr, n));
+
+        // make curr = next for next iteration
+        for (int k = 0; k < n; k++)
+            curr[k] = next[k];
+    }
+    // write the solution to out
+    for (int k = 0; k < n; k++)
+        out[k] = next[k];
+
+    delete[] curr;
+    delete[] next; 
+    return iter;
+}
+
 std::pair<Matrix, Matrix> cholesky(const Matrix& A) 
 { 
     const int n = A.get_num_rows();

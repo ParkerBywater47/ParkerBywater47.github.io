@@ -58,20 +58,14 @@ void JacobiIteration(double *A[], double b[], double initial_guess[], const int 
 
 **Usage/Example:** Sample output with A =  
 
-      5.0000    -2.0000      3.0000
+      6.0000    -2.0000      3.0000
      -3.0000     9.0000      1.0000
       2.0000    -1.0000     -7.0000
 
 and b =
-    
-    -1
-     2
-     3
+
 
 The solution returned is x =
     
-     0.18612
-     0.33123
-    -0.42271
 
 **Last Modified:** 11/18/19
