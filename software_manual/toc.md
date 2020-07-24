@@ -41,7 +41,7 @@ into a new matrix to not alter the given data if necessary.
 * [LU Solver](./LU_solve.md) - Solves a square system of linear equations given the LU-factorization of the coeffecient matrix. 
 * [Cholesky Factorization](./cholesky.md) - Computes the Cholesky factorization of a positive definite real-valued matrix.
 * [Jacobi Iteration](./jacobi_iteration.md) - Solves a square stricly diagonally dominant system of linear equations iteratively using the Jacobi method. 
-* [Gauss-Seidel](./gauss_sediel.md) - Solves a square stricly diagonally dominant system of linear equations iteratively using the Gauss-Seidel method. 
+* [Gauss-Seidel Iteration](./gauss_sediel.md) - Solves a square stricly diagonally dominant system of linear equations iteratively using the Gauss-Seidel method. 
 
 ## Leetcode Problems
 * [Two Sum](./two_sum.md)
