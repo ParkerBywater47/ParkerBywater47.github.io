@@ -40,11 +40,8 @@ into a new matrix to not alter the given data if necessary.
     * [Scaled Partial Pivoting In-place](./square_solve_spp_in_place.md)
 * [LU Solver](./LU_solve.md) - Solves a square system of linear equations given the LU-factorization of the coeffecient matrix. 
 * [Cholesky Factorization](./cholesky.md) - Computes the Cholesky factorization of a positive definite real-valued matrix.
-
-<!-- 
-* [Jacobi Iteration](./jacobi.md) - Solves a square stricly diagonally dominant system of linear equations iteratively using the Jacobi method. 
-* [Gauss-Seidel](./gauss_sediel.md) - 
--->
+* [Jacobi Iteration](./jacobi_iteration.md) - Solves a square stricly diagonally dominant system of linear equations iteratively using the Jacobi method. 
+* [Gauss-Seidel](./gauss_sediel.md) - Solves a square stricly diagonally dominant system of linear equations iteratively using the Gauss-Seidel method. 
 
 ## Leetcode Problems
 * [Two Sum](./two_sum.md)

@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-int gauss_seidel_iteration(const Matrix& A, const double b[], double initial_guess[], double tol, int max_iter, double out[]) 
+int gauss_seidel_iteration(const Matrix& A, const double b[], double initial_guess[], const double tol, const int max_iter, double out[]) 
 {
     const int n = A.get_num_rows();
 
@@ -17,10 +17,12 @@ int gauss_seidel_iteration(const Matrix& A, const double b[], double initial_gue
     double * next = new double[n];
 
     // make curr = initial_guess
+    # pragma omp parallel for 
     for (int k = 0; k < n; k++)
         curr[k] = initial_guess[k];
 
     // make next = curr
+    # pragma omp parallel for 
     for (int k = 0; k < n; k++)
         next[k] = curr[k];
 
@@ -43,20 +45,21 @@ int gauss_seidel_iteration(const Matrix& A, const double b[], double initial_gue
         err = fabs(L2_norm(next, n) - L2_norm(curr, n));
 
         // make curr = next for next iteration
+        # pragma omp parallel for
         for (int k = 0; k < n; k++)
             curr[k] = next[k];
-
     }
     // write the solution to out
+    # pragma omp parallel for
     for (int i = 0; i < n; i++)
-        out[i] = curr[i];
+        out[i] = next[i];
 
     delete[] curr;
     delete[] next; 
-    return iter; 
+    return iter - 1; 
 }
 
-int jacobi_iteration(const Matrix& A, const double b[], double initial_guess[], double tol, int max_iter, double out[]) 
+int jacobi_iteration(const Matrix& A, const double b[], const double initial_guess[], const double tol, const int max_iter, double out[]) 
 {
     const int n = A.get_num_rows();
 
@@ -66,12 +69,15 @@ int jacobi_iteration(const Matrix& A, const double b[], double initial_guess[], 
     double * next = new double[n];
 
     // make curr = initial_guess
+    # pragma omp parallel for
     for (int k = 0; k < n; k++)
         curr[k] = initial_guess[k];
 
-    while (iter++ < max_iter && err > tol) {
+    while (iter++ < max_iter && err > tol) 
+    {
         // cout << "curr @ iter: " << iter << endl;
         // cout << "err = " << err << endl;
+        # pragma omp parallel for
         for (int i = 0; i < n; i++) 
         {
             double sum = 0.0;
@@ -86,16 +92,18 @@ int jacobi_iteration(const Matrix& A, const double b[], double initial_guess[], 
         err = fabs(L2_norm(next, n) - L2_norm(curr, n));
 
         // make curr = next for next iteration
+        # pragma omp parallel for
         for (int k = 0; k < n; k++)
             curr[k] = next[k];
     }
     // write the solution to out
+    # pragma omp parallel for
     for (int k = 0; k < n; k++)
         out[k] = next[k];
 
     delete[] curr;
     delete[] next; 
-    return iter;
+    return iter - 1;
 }
 
 std::pair<Matrix, Matrix> cholesky(const Matrix& A) 

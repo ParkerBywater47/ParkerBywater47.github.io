@@ -1,4 +1,4 @@
-**Routine Name:** square_solver   
+**Routine Name:** square_solve   
 
 **Author:** Parker Bywater
 
@@ -15,21 +15,25 @@ matrix should be an instance of [this](../src/Matrix.cpp) class and the vector s
 
 **Exceptions:** Throws `std::invalid_argument` if A is not square. 
 
-**Implementation/Code:** The following is the code for square_solver.
+**Implementation/Code:** The following is the code for square_solve. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
+must be included and you must use the `-fopenmp` option when compiling.   
+
 ```C++  
-inline void square_solver(const Matrix& A, double b[], double out[]) 
+inline void square_solve(const Matrix& A, double b[], double out[]) 
 {
     if (A.get_num_rows() != A.get_num_cols())
 	throw std::invalid_argument("A must be a square matrix");
 
     // copy the matrix and rhs vector
     Matrix A_copy = A; 
+
     double * b_copy = new double[A.get_num_rows()];
+    # pragma omp parallel for
     for (int i = 0; i < A.get_num_rows(); i++)
         b_copy[i] = b[i];
 
     // call the in place version with the copies
-    square_solver_in_place(A_copy, b_copy, out);
+    square_solve_in_place(A_copy, b_copy, out);
     
     // clean up memory 
     delete[] b_copy; 
@@ -37,7 +41,7 @@ inline void square_solver(const Matrix& A, double b[], double out[])
 ```
 
 **Dependencies:** 
-* `square_solver_in_place` code [here](./square_solver_in_place.md)
+* `square_solve_in_place` code [here](./square_solve_in_place.md)
 
 **Usage/Example:** Sample output for the matrix A = 
 

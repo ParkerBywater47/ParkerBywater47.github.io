@@ -16,9 +16,9 @@ inline double L2_norm(const double vec[], const int n)
     return sqrt(sum);
 }
 
-int gauss_seidel_iteration(const Matrix& A, const double b[], double initial_guess[], double tol, int max_iter, double out[]) ;
+int gauss_seidel_iteration(const Matrix& A, const double b[], double initial_guess[], const double tol, const int max_iter, double out[]) ;
 
-int jacobi_iteration(const Matrix& A, const double b[], double initial_guess[], double tol, int max_iter, double out[]) ;
+int jacobi_iteration(const Matrix& A, const double b[], const double initial_guess[], const double tol, const int max_iter, double out[]) ;
 
 std::pair<Matrix, Matrix> cholesky(const Matrix& A); 
 
@@ -132,7 +132,9 @@ inline void square_solve(const Matrix& A, double b[], double out[])
 
     // copy the matrix and rhs vector
     Matrix A_copy = A; 
+
     double * b_copy = new double[A.get_num_rows()];
+    # pragma omp parallel for
     for (int i = 0; i < A.get_num_rows(); i++)
         b_copy[i] = b[i];
 

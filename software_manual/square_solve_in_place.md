@@ -1,4 +1,4 @@
-**Routine Name:** square_solver_in_place   
+**Routine Name:** square_solve_in_place   
 
 **Author:** Parker Bywater
 
@@ -17,9 +17,11 @@ parameter.
 
 **Exceptions:** Throws `std::invalid_argument` if A is not square. 
 
-**Implementation/Code:** The following is the code for square_solver_in_place.
+**Implementation/Code:** The following is the code for square_solve_in_place. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
+must be included and you must use the `-fopenmp` option when compiling.   
+
 ```C++ 
-void square_solver_in_place(Matrix& A, double b[], double out[]) 
+void square_solve_in_place(Matrix& A, double b[], double out[]) 
 {
     if (A.get_num_rows() != A.get_num_cols()) 
 	throw std::invalid_argument("A must be a square matrix");
