@@ -15,6 +15,8 @@ a desired tolerance, maximum number of iterations, and the dimension of the matr
 **Implementation/Code:** The following is the code for gradient_descent. 
    
 ```C++ 
+int gradient_descent(const Matrix& A, const double b[], const double init_guess[], const double tol, const int max_iter, double out[]) 
+{
     const int n = A.get_num_rows();
 
 

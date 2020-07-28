@@ -6,29 +6,35 @@
 
 **Description/Purpose:** This routine computes the Cholesky facorization of a positive definite real-valued matrix. 
 
-**Input:** A real-valued positive definite matrix represented as an array of pointers to doubles, the dimension of the array, 
-and two more arrays of double pointers, to which, the output will be written.  
+**Input:** A real-valued positive definite matrix which is an instance of [this](../src/Matrix.cpp) Matrix class.
  
-**Output:** This routine "returns" the lower triangular matrix of the factorization to the parameter "\*L[]" and its
-transpose to \*L\_trans[].
+**Output:** This routine returns an instance of `std::pair` with the first being L and the second being L\*. 
 
 **Implementation/Code:** The following is the code for cholesky. 
    
 ```C++
-void cholesky(double *A[], const int n, double *L[], *L_trans[]) {
+std::pair<Matrix, Matrix> cholesky(const Matrix& A) 
+{ 
+    const int n = A.get_num_rows();
+
     // check that the matrix is symmetric
+    if (n != A.get_num_cols())
+        throw std::invalid_argument("Matrix must be square to be symmetric"); 
+
     for (int i = 0; i < n; i++)
     {
-        for (int j = i; j < n; )
+        for (int j = i; j < n; j++)
         {
             if (A[i][j] != A[j][i])
-                // just return for now as I don't know much about error handling in C++
-                return;
+                throw std::invalid_argument("Matrix must be symmetric");
         }
     }
 
+    std::pair<Matrix, Matrix> out(Matrix(n,n), Matrix(n,n));
+    Matrix& L = out.first;
+    Matrix& L_trans = out.second;
+
     // do special gaussian elimination
-    // first compute L[0][0] = sqrt(A[0][0])
     L[0][0] = sqrt(A[0][0]);
     L_trans[0][0] = L[0][0];
     for (int i = 1; i < n; i++) 
@@ -43,7 +49,7 @@ void cholesky(double *A[], const int n, double *L[], *L_trans[]) {
             L[i][j] = (A[i][j] - sum0) / L[j][j];
             L_trans[j][i] = L[i][j]; 
         }
-        // j == i
+
         // compute the diagonal entries
         double sum1 = 0;
         for (int k = 0; k < j; k++)
@@ -51,6 +57,7 @@ void cholesky(double *A[], const int n, double *L[], *L_trans[]) {
         L[j][j] = sqrt(A[j][j] - sum1);
         L_trans[j][j] = L[j][j]; 
     }
+    return out; 
 }    
 ```
 
