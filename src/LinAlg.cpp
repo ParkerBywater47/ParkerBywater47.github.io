@@ -7,6 +7,90 @@
 
 #include <iostream>
 
+
+int gradient_descent(const Matrix& A, const double b[], const double init_guess[], const double tol, const int max_iter, double out[]) 
+{
+    const int n = A.get_num_rows();
+
+
+//    // the next and current iterates of the residual
+//    double * curr_r = new double[n]; 
+//    double * next_r = new double[n]; 
+//
+//    // the next and current iterates of the step size
+//    double curr_step;
+//    double next_step; 
+//
+//    // var to store A * curr_r
+//    double * step_times_r = new double[n];
+//    double * delta_r = new double[n]; // stores curr_step * A *curr_r
+//
+    // error
+    double err = 2 * tol;     
+
+    // copy init_guess into curr_x
+    double * curr_x = new double[n]; 
+    # pragma omp parallel for
+    for (int i = 0; i < n; i++)
+        curr_x[i] = init_guess[i];
+//
+    //// compute the first residual
+    //double * delete_me = new double[n]; 
+    //left_matrix_vector_mult(A, curr_x, delete_me); 
+    //subtract_vectors(b, delete_me, curr_r, n);  
+    //delete[] delete_me;
+//
+    //// compute A*r_i
+    //left_matrix_vector_mult(A, curr_r, A_times_r); 
+// 
+    //// compute the current step 
+//    curr_step = dot_product(curr_r, curr_r, n) / dot_product(curr_r, A_times_r, n);
+
+
+    // r is short for residual
+    double * r = new double[n];
+    double * A_times_r = new double[n]; 
+    double * step_times_r = new double[n]; 
+    double * A_times_x = new double[n];
+
+    double step;
+        
+    int iter = 0; 
+    while (err > tol && iter < max_iter)
+    {
+        // compute r         
+        left_matrix_vector_mult(A, curr_x, A_times_x);  subtract_vectors(b, A_times_x, r, n);
+        
+        // compute A*r for determining step size
+        left_matrix_vector_mult(A, r, A_times_r);
+
+        // compute step size
+        step = dot_product(r, r, n) / dot_product(r, A_times_r, n); 
+
+        // compute step_times_r to be added to curr_x 
+        scale_vector(r, step, step_times_r, n); 
+
+        // add step_times_r to curr_x to get next_x
+        add_vectors(curr_x, step_times_r, curr_x, n); 
+
+        // update error and iter 
+        err = L2_norm(r, n); 
+        iter++; 
+    }
+
+    // write the solution to out
+    for (int i = 0; i < n; i++)
+        out[i] = curr_x[i]; 
+
+    // delete what's necessary
+    delete[] curr_x; 
+    delete[] A_times_x;
+    delete[] A_times_r; 
+    delete[] step_times_r; 
+    delete[] r; 
+    return iter; 
+}
+
 int gauss_seidel_iteration(const Matrix& A, const double b[], double initial_guess[], const double tol, const int max_iter, double out[]) 
 {
     const int n = A.get_num_rows();
@@ -361,7 +445,7 @@ std::pair<Matrix, Matrix> LU(Matrix& A)
 
 
 
-void left_matrix_vector_mult(Matrix& A, double x[], double out[])
+void left_matrix_vector_mult(const Matrix& A, double x[], double out[])
 { 
     const int num_rows = A.get_num_rows(); 
     const int num_cols = A.get_num_cols(); 
@@ -447,7 +531,6 @@ Matrix gauss_elim_square(Matrix& A) {
     gauss_elim_square_in_place(out); 
     return out; 
 }
-
 
 
 

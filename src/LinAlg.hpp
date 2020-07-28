@@ -7,6 +7,7 @@
 #include <utility>
 #include <math.h>
 
+int gradient_descent(const Matrix& A, const double b[], const double init_guess[], const double tol, const int max_iter, double out[]) ; 
 
 inline double L2_norm(const double vec[], const int n) 
 {
@@ -145,7 +146,7 @@ inline void square_solve(const Matrix& A, double b[], double out[])
     delete[] b_copy; 
 }
 
-void left_matrix_vector_mult(Matrix& A, double x[], double out[]); 
+void left_matrix_vector_mult(const Matrix& A, double x[], double out[]); 
 
 void gauss_elim_square_in_place(Matrix&);
 
@@ -157,7 +158,7 @@ Matrix LU_compressed(const Matrix& A);
 
 void LU_compressed_in_place(Matrix& A);
 
-inline double dot_product(double vec1[], double vec2[], const int n) 
+inline double dot_product(const double vec1[], const double vec2[], const int n) 
 {
     double sum = 0;
     for (int i = 0; i < n; i++)
@@ -189,8 +190,32 @@ void square_solver(const Matrix& A, double b[], double out[]) ;
 //    up_triangular_back_sub(copy, b, out);
 //}
 
+inline void subtract_vectors(const double v[], const double u[], double out[], const int n) 
+{ 
+    # pragma omp parallel for
+    for (int i = 0; i < n; i++) 
+    {
+        out[i] = v[i] - u[i];
+    }
+}
 
+inline void add_vectors(const double v[], const double u[], double out[], const int n) 
+{ 
+    # pragma omp parallel for
+    for (int i = 0; i < n; i++) 
+    {
+        out[i] = u[i] + v[i];
+    }
+}
 
+inline void scale_vector(const double v[], const double a, double out[], const int n) 
+{ 
+    # pragma omp parallel for 
+    for (int i = 0; i < n; i++)
+    {
+        out[i] = v[i] * a;
+    }
+}
 
 
 #endif

@@ -42,6 +42,7 @@ into a new matrix to not alter the given data if necessary.
 * [Cholesky Factorization](./cholesky.md) - Computes the Cholesky factorization of a positive definite real-valued matrix.
 * [Jacobi Iteration](./jacobi_iteration.md) - Solves a square stricly diagonally dominant system of linear equations iteratively using the Jacobi method. 
 * [Gauss-Seidel Iteration](./gauss_seidel_iteration.md) - Solves a square stricly diagonally dominant system of linear equations iteratively using the Gauss-Seidel method. 
+* [Gradient Descent](./gradient_descent.md) - Uses the method of (steepest) gradient descent to solve linear systems of equations.
 
 ## Leetcode Problems
 * [Two Sum](./two_sum.md)
