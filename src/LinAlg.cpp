@@ -532,12 +532,12 @@ std::pair<Matrix, Matrix> LU(Matrix& A)
 
 
 
-void left_matrix_vector_mult(const Matrix& A, double x[], double out[])
+void left_matrix_vector_mult(const Matrix& A, const double x[], double out[])
 { 
     const int num_rows = A.get_num_rows(); 
     const int num_cols = A.get_num_cols(); 
-    # pragma omp parallel 
-    # pragma omp for
+
+    # pragma omp parallel for 
     for (int i = 0; i < num_rows; i++)
     {
 //        double dot_product = 0; 
@@ -566,8 +566,7 @@ void gauss_elim_square_in_place(Matrix& A)
             double pivot = A[r][k];
 
             // eliminate entries below the pivot
-            # pragma omp parallel
-            # pragma omp for 
+            # pragma omp parallel for
             for (int i = r + 1; i < n; i++) 
             {
                 double multiplier = A[i][k] / pivot;
@@ -576,7 +575,8 @@ void gauss_elim_square_in_place(Matrix& A)
                 if (multiplier != 0) 
                 {
                     // do the row subtraction
-                    for (int j = 0; j < n; j++) {
+                    for (int j = 0; j < n; j++) 
+                    {
                         A[i][j] = A[i][j] - multiplier * A[r][j];
                     }
                 }
@@ -609,7 +609,8 @@ void gauss_elim_square_in_place(Matrix& A)
 }
 
 
-Matrix gauss_elim_square(Matrix& A) {
+Matrix gauss_elim_square(const Matrix& A) 
+{
     if (A.get_num_rows() != A.get_num_cols())
         throw std::invalid_argument("Matrix must be square");
    
@@ -621,5 +622,33 @@ Matrix gauss_elim_square(Matrix& A) {
 
 
 
+Matrix random_diag_dom_symmetric_matrix(const int n, const int seed)
+{
+    Matrix out(n,n);
+    srand(seed);
+    for (int i = 0; i < n; i++)
+    {
+        double sum = 0.0;
+        const int max_non_diag_val = RAND_MAX / n - 1;
+        for (int j = i + 1; j < n; j++)
+        {
+            int num = (double)(rand() % max_non_diag_val);
+            out[i][j] = num;
+            out[j][i] = num;
+            sum += fabs(num);
+        }
+
+        // sum the entries on the left half of row i
+        for (int j = 0; j < i; j++)
+            sum += out[i][j];
+
+        // fill in the diagonal entries
+        double num = (double)rand();
+        while (fabs(num) <= sum)
+            num = (double)rand();
+        out[i][i] = num;
+    }
+    return out; 
+}
 
 

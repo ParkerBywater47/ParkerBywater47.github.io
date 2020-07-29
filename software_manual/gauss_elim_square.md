@@ -14,8 +14,10 @@ the aforementioned Matrix class.
 **Exceptions:** Throws `std::invalid_argument` if the matrix given is not square.
 
 **Implementation/Code:** The following is the code for gauss_elim_square. 
+
 ```C++ 
-Matrix gauss_elim_square(Matrix& A) {
+Matrix gauss_elim_square(const Matrix& A) 
+{
     if (A.get_num_rows() != A.get_num_cols())
         throw std::invalid_argument("Matrix must be square");
    

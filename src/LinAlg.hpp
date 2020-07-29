@@ -148,11 +148,11 @@ inline void square_solve(const Matrix& A, double b[], double out[])
     delete[] b_copy; 
 }
 
-void left_matrix_vector_mult(const Matrix& A, double x[], double out[]); 
+void left_matrix_vector_mult(const Matrix& A, const double x[], double out[]); 
 
 void gauss_elim_square_in_place(Matrix&);
 
-Matrix gauss_elim_square(Matrix&);
+Matrix gauss_elim_square(const Matrix&);
 
 std::pair<Matrix, Matrix> LU(Matrix& A);
 
@@ -219,5 +219,13 @@ inline void scale_vector(const double v[], const double a, double out[], const i
     }
 }
 
+Matrix random_diag_dom_symmetric_matrix(const int n, const int seed);
+
+inline void ones_vector(int n, double out[])
+{
+    # pragma omp parallel for
+    for (int i = 0; i < n; i++)
+        out[i] = 1;
+}
 
 #endif

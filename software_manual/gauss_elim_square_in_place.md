@@ -18,8 +18,6 @@ must be included and you must use the `-fopenmp` option when compiling.
 
 
 ```C++ 
-#include <stdexcept>
-
 void gauss_elim_square_in_place(Matrix& A)
 {
     const int n = A.get_num_rows(); 
@@ -34,9 +32,8 @@ void gauss_elim_square_in_place(Matrix& A)
         {
             double pivot = A[r][k];
 
-            # pragma omp parallel
-            # pragma omp for 
             // eliminate entries below the pivot
+            # pragma omp parallel for
             for (int i = r + 1; i < n; i++) 
             {
                 double multiplier = A[i][k] / pivot;
@@ -45,7 +42,8 @@ void gauss_elim_square_in_place(Matrix& A)
                 if (multiplier != 0) 
                 {
                     // do the row subtraction
-                    for (int j = 0; j < n; j++) {
+                    for (int j = 0; j < n; j++) 
+                    {
                         A[i][j] = A[i][j] - multiplier * A[r][j];
                     }
                 }

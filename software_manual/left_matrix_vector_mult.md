@@ -15,12 +15,12 @@ In math language, it computes Ax where A is the matrix and x is the vector.
 must be included and you must use the `-fopenmp` option when compiling.   
 
 ```C++
-void left_matrix_vector_mult(Matrix& A, double x[], double out[])
+void left_matrix_vector_mult(const Matrix& A, const double x[], double out[])
 { 
     const int num_rows = A.get_num_rows(); 
     const int num_cols = A.get_num_cols(); 
-    # pragma omp parallel 
-    # pragma omp for
+
+    # pragma omp parallel for 
     for (int i = 0; i < num_rows; i++)
     {
         out[i] = dot_product(A[i], x, num_cols);
