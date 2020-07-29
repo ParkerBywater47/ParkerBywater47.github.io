@@ -4,21 +4,20 @@
 
 **Language:** C++ 
 
-**Description/Purpose:** This routine implements gradient descent for approximating the solution 
-of systems of linear equations.  
+**Description/Purpose:** This routine implements gradient descent for approximating the solution of systems of linear equations.  
 
-**Input:** A symmetric positive definite matrix, a right hand side vector, an initial guess of the solution, 
-a desired tolerance, maximum number of iterations, and the dimension of the matrix.
- 
-**Output:** This routine writes the approximate solution to the parameter 'out[]'.
+**Input:** A symmetric, positive definite matrix, a right hand side vector, an initial guess of the solution, 
+a desired error tolerance, and a maximum number of iterations. 
 
-**Implementation/Code:** The following is the code for gradient_descent. 
+**Output:** This routine writes the approximate solution to the parameter 'out'.
+
+**Implementation/Code:** The following is the code for gradient_descent. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
+must be included and you must use the `-fopenmp` option when compiling.   
    
 ```C++ 
 int gradient_descent(const Matrix& A, const double b[], const double init_guess[], const double tol, const int max_iter, double out[]) 
 {
     const int n = A.get_num_rows();
-
 
     // copy init_guess into curr_x
     double * curr_x = new double[n]; 
@@ -26,16 +25,16 @@ int gradient_descent(const Matrix& A, const double b[], const double init_guess[
     for (int i = 0; i < n; i++)
         curr_x[i] = init_guess[i];
 
+    // r is short for residual
+    double * r = new double[n];
     double * A_times_r = new double[n]; 
     double * step_times_r = new double[n]; 
     double * A_times_x = new double[n];
-    // r is short for residual
-    double * r = new double[n];
 
     double step;
-        
-    int iter = 0; 
+    
     double err = 2 * tol;     
+    int iter = 0; 
     while (err > tol && iter < max_iter)
     {
         // compute r         
@@ -59,15 +58,16 @@ int gradient_descent(const Matrix& A, const double b[], const double init_guess[
     }
 
     // write the solution to out
+    # pragma omp parallel for 
     for (int i = 0; i < n; i++)
         out[i] = curr_x[i]; 
 
+    // delete what's necessary
     delete[] curr_x; 
     delete[] A_times_x;
     delete[] A_times_r; 
     delete[] step_times_r; 
     delete[] r; 
-
     return iter; 
 }
 ```
@@ -82,7 +82,9 @@ int gradient_descent(const Matrix& A, const double b[], const double init_guess[
 and b =
 
     5.0833
-    3.9500 2.7500 1.6167
+    3.9500 
+    2.7500 
+    1.6167
 
 with a desired tolerance of 1.0E-06.    
 After running the algorithm the values stored in out are 
@@ -92,4 +94,3 @@ After running the algorithm the values stored in out are
     1.0000 
     1.0000 
 
-**Last Modified:** 12/11/19

@@ -7,6 +7,94 @@
 
 #include <iostream>
 
+int conjugate_gradient(const Matrix& A, const double b[], const double init_guess[], const double tol, const int max_iter, double out[]) 
+{
+    const int n = A.get_num_rows();
+
+    // copy init_guess into x
+    double * curr_x = new double[n]; 
+    # pragma omp parallel for
+    for (int i = 0; i < n; i++)
+        curr_x[i] = init_guess[i]; 
+    
+    // compute d_0 and r_0
+    double * curr_d = new double[n]; // current direction vector?  
+    double * Ax = new double[n];    // stores A * x
+    left_matrix_vector_mult(A, curr_x, Ax); 
+    subtract_vectors(b, Ax, curr_d, n); 
+    delete[] Ax; 
+    
+    double * curr_r = new double[n]; // current residual vector
+    # pragma omp parallel for
+    for (int i = 0; i < n; i++) 
+        curr_r[i] = curr_d[i]; 
+
+
+    double alpha;                       // a scale factor 
+    double beta;                        // the other scale factor
+    double * next_d = new double[n];    // next direction vector? 
+    double * next_x = new double[n];    // next iterate of the solution 
+    double * next_r = new double[n];    // next iterate of the residual vector 
+    double * Ad = new double[n];        // to store A * curr_d
+    double * alpha_d = new double[n];   // to store alpha * curr_d 
+    double * alpha_A_d = new double[n]; // to store alpha * A * curr_d
+    double * beta_d = new double[n]; 
+
+    double err = 2 * tol;
+    int iter = 0;
+    while (err > tol && iter < max_iter) 
+    {
+        // compute alpha_i
+        left_matrix_vector_mult(A, curr_d, Ad); // compute Ad first as it's used to compute the demoninator below
+        alpha = dot_product(curr_r, curr_r, n) / dot_product(curr_d, Ad, n); 
+        
+        // compute x_i+1 = x_i + alpha_i * d_i
+        scale_vector(curr_d, alpha, alpha_d, n) ;
+        add_vectors(curr_x, alpha_d, next_x, n); 
+
+        // compute alpha*A*curr_d
+        scale_vector(Ad, alpha, alpha_A_d, n) ;
+        // compute next_r
+        subtract_vectors(curr_r, alpha_A_d, next_r, n);
+        
+        // compute beta_i+1
+        beta = dot_product(next_r, next_r, n) / dot_product(curr_r, curr_r, n); 
+
+        // compute d_i+1
+        scale_vector(curr_d, beta, beta_d, n); 
+        add_vectors(next_r, beta_d, next_d, n); 
+
+        // set curr_x, curr_r, curr_d forward 
+        # pragma omp parallel for
+        for (int i = 0; i < n; i++)
+        {
+            curr_x[i] = next_x[i]; 
+            curr_r[i] = next_r[i];
+            curr_d[i] = next_d[i]; 
+        }
+
+        // update the error
+        err = L2_norm(curr_r, n); 
+        iter++; 
+    }
+
+    // copy the solution into out
+    # pragma omp parallel for
+    for (int i = 0; i < n; i++) 
+        out[i] = curr_x[i]; 
+
+    delete[] curr_x; 
+    delete[] next_x; 
+    delete[] curr_r; 
+    delete[] next_r; 
+    delete[] curr_d; 
+    delete[] next_d; 
+    delete[] Ad; 
+    delete[] alpha_d; 
+    delete[] alpha_A_d; 
+    delete[] beta_d; 
+    return iter; 
+}
 
 int gradient_descent(const Matrix& A, const double b[], const double init_guess[], const double tol, const int max_iter, double out[]) 
 {
@@ -25,9 +113,6 @@ int gradient_descent(const Matrix& A, const double b[], const double init_guess[
 //    double * step_times_r = new double[n];
 //    double * delta_r = new double[n]; // stores curr_step * A *curr_r
 //
-    // error
-    double err = 2 * tol;     
-
     // copy init_guess into curr_x
     double * curr_x = new double[n]; 
     # pragma omp parallel for
@@ -55,6 +140,7 @@ int gradient_descent(const Matrix& A, const double b[], const double init_guess[
 
     double step;
         
+    double err = 2 * tol;     
     int iter = 0; 
     while (err > tol && iter < max_iter)
     {
@@ -79,6 +165,7 @@ int gradient_descent(const Matrix& A, const double b[], const double init_guess[
     }
 
     // write the solution to out
+    # pragma omp parallel for 
     for (int i = 0; i < n; i++)
         out[i] = curr_x[i]; 
 

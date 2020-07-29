@@ -7,6 +7,8 @@
 #include <utility>
 #include <math.h>
 
+int conjugate_gradient(const Matrix& A, const double b[], const double init_guess[], const double tol, const int max_iter, double out[]) ;
+
 int gradient_descent(const Matrix& A, const double b[], const double init_guess[], const double tol, const int max_iter, double out[]) ; 
 
 inline double L2_norm(const double vec[], const int n) 
