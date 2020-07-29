@@ -59,5 +59,3 @@ The value stored in x is then
      1.12811
      1.75681
 
-
-**Last Modified:** 12/4/19

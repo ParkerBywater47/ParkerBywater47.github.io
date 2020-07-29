@@ -92,4 +92,3 @@ After calling the function the matrix object holds the values below.
     0.0000	    0.0000	    0.0000	  -13.2366	    1.2561	
     0.0000	    0.0000	   -0.0000	    0.0000	   -4.6013 
 
-**Last Modified:** 1/10/20 

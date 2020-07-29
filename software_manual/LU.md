@@ -12,7 +12,7 @@
 
 **Implementation/Code:** The following is the code for LU. 
 ```C++
-std::pair<Matrix, Matrix> LU(Matrix& A)
+std::pair<Matrix, Matrix> LU(const Matrix& A)
 { 
     const int n = A.get_num_rows();  
     Matrix L(n,n);
@@ -62,5 +62,3 @@ and U =
     -0.0000	    0.0000	   -8.5617	  -12.8255	    1.4570	
     -0.0000	    0.0000	    0.0000	   -4.6326	    5.8253	
     -0.0000	    0.0000	    0.0000	    0.0000	   27.4671
-
-**Last Modified:** 11/8/19 

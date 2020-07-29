@@ -70,5 +70,3 @@ The output solution is
      2.0000
     -3.2500
 
-
-**Last Modified:** 1/6/19

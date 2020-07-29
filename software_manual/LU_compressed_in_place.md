@@ -15,8 +15,6 @@ single matrix to save storage space. Read the output section below for more.
 must be included and you must use the `-fopenmp` option when compiling.   
  
 ```C++ 
-#include <omp.h>
-
 void LU_compressed_in_place(Matrix& A) 
 {
     const int n = A.get_num_rows();
@@ -74,4 +72,3 @@ and U =
 
 As you can see, the diagonal and above is identical to U while everything below the diagonal is identical to L.
    
-**Last Modified:** 11/9/19

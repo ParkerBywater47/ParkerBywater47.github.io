@@ -154,11 +154,16 @@ void gauss_elim_square_in_place(Matrix&);
 
 Matrix gauss_elim_square(const Matrix&);
 
-std::pair<Matrix, Matrix> LU(Matrix& A);
-
-Matrix LU_compressed(const Matrix& A);
+std::pair<Matrix, Matrix> LU(const Matrix& A);
 
 void LU_compressed_in_place(Matrix& A);
+
+inline Matrix LU_compressed(const Matrix& A) 
+{
+    Matrix out(A);
+    LU_compressed_in_place(out);
+    return out; 
+}
 
 inline double dot_product(const double vec1[], const double vec2[], const int n) 
 {

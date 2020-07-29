@@ -55,4 +55,3 @@ This returns x =
     -0.3170
     -0.2584 
 
-**Last Modified:** 11/6/19

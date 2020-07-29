@@ -47,7 +47,7 @@ To clarify what this output is, the LU-factorization of A is L =
     0.6455	    1.0000	    0.0000	    0.0000	    0.0000	
     0.5108	    1.1066	    1.0000	    0.0000	    0.0000	
     0.9832	    0.5689	   14.5966	    1.0000	    0.0000	
-    1.8910	    0.7475	   18.9806	    1.3881	    1.000
+    1.8910	    0.7475	   18.9806	    1.3881	    1.0000
 
 and U = 
 
@@ -59,4 +59,3 @@ and U =
 
 As you can see, the diagonal and above is identical to U while everything below the diagonal is identical to L.
    
-**Last Modified:** 11/9/19
