@@ -13,16 +13,16 @@ matrix should be an instance of [this](../src/Matrix.cpp) class and the vector s
 **Output:** This routine writes the solution of the system to the provided memory location. 
 
 **Exceptions:** Throws `std::invalid_argument` if A is not square. 
+
 **Implementation/Code:** The following is the code for square_solver. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
 must be included and you must use the `-fopenmp` option when compiling.   
 
 ```C++  
 void square_solve_spp_in_place(Matrix& A, double b[], double out[])
 {
-    if (A.get_num_rows() != A.get_num_cols())
-        throw std::invalid_argument("Matrix must be square");
-
     const int n = A.get_num_rows(); 
+    if (n != A.get_num_cols())
+        throw std::invalid_argument("Matrix must be square");
 
     // compute the scale vector
     double * scale_vec = new double[n];
@@ -56,9 +56,6 @@ void square_solve_spp_in_place(Matrix& A, double b[], double out[])
 
         // swap the current row with row at largest_ratio_idx
         A.swap_rows(r, largest_ratio_idx); 
-//        double * rowTemp = U[r];
-//        U[r] = U[largest_ratio_idx];
-//        U[largest_ratio_idx] = rowTemp;
        
         // swap the entries in c as well
         double temp = b[r];
@@ -71,7 +68,7 @@ void square_solve_spp_in_place(Matrix& A, double b[], double out[])
             for (int i = r + 1; i < n; i++) 
             {
                 double multiplier = A[i][k] / pivot;
-                // U[r] = U[r] - multiplier * U[r-1]
+                // do A[r] = U[r] - multiplier * A[r-1] for all entries of A[r]
                 for (int j = 0; j < n; j++) 
                 {
                     A[i][j] = A[i][j] - multiplier * A[r][j];

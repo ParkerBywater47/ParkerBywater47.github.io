@@ -13,6 +13,7 @@ matrix should be an instance of [this](../src/Matrix.cpp) class and the vector s
 **Output:** This routine writes the solution of the system to the provided memory location. 
 
 **Exceptions:** Throws `std::invalid_argument` if A is not square. 
+
 **Implementation/Code:** The following is the code for square_solver. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
 must be included and you must use the `-fopenmp` option when compiling.   
 

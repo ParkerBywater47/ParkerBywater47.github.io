@@ -128,7 +128,7 @@ inline void LU_solve(Matrix& L, Matrix& U, double b[], double out[])
 
 void square_solve_in_place(Matrix& A, double b[], double out[]);
 
-inline void square_solve(const Matrix& A, double b[], double out[]) 
+inline void square_solve(const Matrix& A, const double b[], double out[]) 
 {
     if (A.get_num_rows() != A.get_num_cols())
 	throw std::invalid_argument("A must be a square matrix");
@@ -173,7 +173,7 @@ inline double dot_product(const double vec1[], const double vec2[], const int n)
     return sum;
 }
 
-inline void diagonal_solve(const Matrix& A, double b[], double out[])  
+inline void diagonal_solve(const Matrix& A, const double b[], double out[])  
 { 
     if (A.get_num_rows() != A.get_num_cols()) 
 	throw std::invalid_argument("Matrix must be square"); 
@@ -183,19 +183,6 @@ inline void diagonal_solve(const Matrix& A, double b[], double out[])
     for (int i = 0; i < n; i++)
         out[i] = b[i] / A[i][i];
 } 
-
-
-void square_solver(const Matrix& A, double b[], double out[]) ;
-//{
-//    // copy the Matrix  
-//    Matrix copy = A;
-//
-//    // do elimination on the copied matrix
-//    gauss_elim_square_in_place(copy); 
-//
-//    // call function which back-substitutes to get the solution
-//    up_triangular_back_sub(copy, b, out);
-//}
 
 inline void subtract_vectors(const double v[], const double u[], double out[], const int n) 
 { 

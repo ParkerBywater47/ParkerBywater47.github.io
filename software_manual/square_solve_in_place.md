@@ -23,10 +23,10 @@ must be included and you must use the `-fopenmp` option when compiling.
 ```C++ 
 void square_solve_in_place(Matrix& A, double b[], double out[]) 
 {
+    const int n = A.get_num_rows(); 
     if (A.get_num_rows() != A.get_num_cols()) 
 	throw std::invalid_argument("A must be a square matrix");
     
-    const int n = A.get_num_rows(); 
     for (int k = 0, r = 0; k < n; k++, r++) 
     {
         double pivot = A[r][k];
@@ -43,7 +43,6 @@ void square_solve_in_place(Matrix& A, double b[], double out[])
     }
     // determines the solution and writes it to out
     up_triangular_back_sub(A, b, out); 
-}
 }
 ```
 **Dependencies:**

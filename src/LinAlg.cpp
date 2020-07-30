@@ -326,10 +326,9 @@ std::pair<Matrix, Matrix> cholesky(const Matrix& A)
 
 void square_solve_spp_in_place(Matrix& A, double b[], double out[])
 {
-    if (A.get_num_rows() != A.get_num_cols())
-        throw std::invalid_argument("Matrix must be square");
-
     const int n = A.get_num_rows(); 
+    if (n != A.get_num_cols())
+        throw std::invalid_argument("Matrix must be square");
 
     // compute the scale vector
     double * scale_vec = new double[n];
@@ -393,13 +392,12 @@ void square_solve_spp_in_place(Matrix& A, double b[], double out[])
     delete[] scale_vec; 
 }
 
-
 void square_solve_in_place(Matrix& A, double b[], double out[]) 
 {
-    if (A.get_num_rows() != A.get_num_cols()) 
+    const int n = A.get_num_rows(); 
+    if (n != A.get_num_cols()) 
 	throw std::invalid_argument("A must be a square matrix");
     
-    const int n = A.get_num_rows(); 
     for (int k = 0, r = 0; k < n; k++, r++) 
     {
         double pivot = A[r][k];
