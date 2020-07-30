@@ -7,6 +7,11 @@
 #include <utility>
 #include <math.h>
 
+
+void pentadiag_mult(const double lolo[], const double lo[], const double mid[], const double up[], const double upup[], const double x[], double out[], const int n); 
+
+void tridiag_mult(const double lower[], const double mid[], const double upper[], const double x[], double out[], const int n); 
+
 int conjugate_gradient(const Matrix& A, const double b[], const double init_guess[], const double tol, const int max_iter, double out[]) ;
 
 int gradient_descent(const Matrix& A, const double b[], const double init_guess[], const double tol, const int max_iter, double out[]) ; 

@@ -2,7 +2,7 @@
 
 **Author:** Parker Bywater
 
-**Language:** C++. This can be compiled using an appropriate C++ compiler. 
+**Language:** C++
 
 **Description/Purpose:** This routine computes the product of a square tridiagonal matrix and a vector.  
 
@@ -12,11 +12,18 @@ and superdiagonal bands of the matrix.
  
 **Output:** This routine writes the result to the parameter 'out[]'  
 
-**Implementation/Code:** The following is the code for tridiag\_mult.
+**Exceptions:** Throws `std::invalid_argument` if n < 2 as this doesn't make sense for matrix-vector multiplication at all. 
+
+**Implementation/Code:** The following is the code for tridiag\_mult. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
+must be included and you must use the `-fopenmp` option when compiling.   
    
 ```C++ 
-void tridiag_mult(double lower[], double mid[], double upper[], double x[], double out[], int n)
+void tridiag_mult(const double lower[], const double mid[], const double upper[], const double x[], double out[], const int n)
 {
+    if (n < 2)
+        throw std::invalid_argument("matrix dimension must be at least 2"); 
+
+    # pragma omp parallel for 
     for (int i = 0; i < n; i++) 
     {
         if (i > 0 && i + 1 < n)
@@ -51,10 +58,7 @@ and x =
 
 The values stored in out after execution are 
     
+    18
     33 
-    41 
-    41
-    36  
-
-
-**Last Modified:** 12/8/19
+    36 
+    23 

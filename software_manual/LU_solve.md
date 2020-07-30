@@ -2,7 +2,7 @@
 
 **Author:** Parker Bywater
 
-**Language:** C++. Pick your favorite compiler (probably g++).   
+**Language:** C++
 
 **Description/Purpose:** This routine solves a square system of linear equations given the 
 LU-factorization of the coeffecient matrix. 

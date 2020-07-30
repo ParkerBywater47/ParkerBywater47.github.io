@@ -7,6 +7,53 @@
 
 #include <iostream>
 
+
+void pentadiag_mult(const double lolo[], const double lo[], const double mid[], const double up[], const double upup[], const double x[], double out[], const int n) 
+{
+    if (n < 4)
+        throw std::invalid_argument("matrix dimension must be at least 4"); 
+
+    # pragma omp parallel for
+    for (int i = 0; i < n; i++)
+    {
+        if (i > 1 && i + 2 < n)
+            out[i] = lolo[i-2] * x[i-2] + lo[i-1] * x[i-1] + mid[i] * x[i] + up[i] * x[i+1] + upup[i] * x[i+2]; 
+        else if (i > 0 && i + 2 < n)
+            out[i] = lolo[i-1] * x[i - 1] + mid[i] * x[i] + up[i] *x[i+ 1] + upup[i] * x[i + 2]; 
+        else if (i == 0 && i + 2 < n)
+            out[i] = mid[i] * x[i] + up[i]*x[i + 1] + upup[i] * x[i + 2]; 
+        else if (i > 1 && i + 1 < n)
+            out[i] = lolo[i - 2] * x[i-2] + lo[i - 1] * x[i - 1] + mid[i] * x[i] + up[i] * x[i + 1];
+        else if (i > 1 && i + 2 < n)
+            out[i] = lolo[i - 2] * x[i - 2] + lo[i - 1] * x[i - 1] + mid[i] * x[i]; 
+        else if (i < n)
+            out[i] = lolo[i -2] * x[i-2] + lo[i-1] * x[i-1] + mid[i] * x[i];
+    } 
+}
+
+void tridiag_mult(const double lower[], const double mid[], const double upper[], const double x[], double out[], const int n)
+{
+    if (n < 2)
+        throw std::invalid_argument("matrix dimension must be at least 2"); 
+
+    # pragma omp parallel for 
+    for (int i = 0; i < n; i++) 
+    {
+        if (i > 0 && i + 1 < n)
+        {
+            out[i] = lower[i - 1] * x[i - 1] + mid[i] * x[i] + upper[i] * x[i + 1]; 
+        }
+        else if (i + 1 < n) 
+        {
+            out[i] = mid[i] * x[i] + upper[i] * x[i + 1]; 
+        }       
+        else 
+        {
+            out[i] = lower[i -1] * x[i-1] + mid[i] * x[i]; 
+        }
+    }
+}
+
 int conjugate_gradient(const Matrix& A, const double b[], const double init_guess[], const double tol, const int max_iter, double out[]) 
 {
     const int n = A.get_num_rows();

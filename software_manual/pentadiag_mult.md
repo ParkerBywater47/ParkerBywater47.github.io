@@ -2,7 +2,7 @@
 
 **Author:** Parker Bywater
 
-**Language:** C++. This can be compiled using an appropriate C++ compiler. 
+**Language:** C++
 
 **Description/Purpose:** This routine computes the product of a square pentadiagonal matrix and a vector.  
 This routine assumes that the matrix is at least a 4x4 matrix as pentadiagonal matrices don't make much 
@@ -14,11 +14,16 @@ lower diagonal, diagonal, higher diagonal, and highest diagonal bands of the mat
  
 **Output:** This routine writes the result to the parameter 'out[]'.  
 
-**Implementation/Code:** The following is the code for pentadiag\_mult.
+**Implementation/Code:** The following is the code for pentadiag\_mult. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
+must be included and you must use the `-fopenmp` option when compiling.   
    
 ```C++ 
-void pentadiag_mult(double lolo[], double lo[], double mid[], double up[], double upup[], double x[], double out[], int n) 
+void pentadiag_mult(const double lolo[], const double lo[], const double mid[], const double up[], const double upup[], const double x[], double out[], const int n) 
 {
+    if (n < 4)
+        throw std::invalid_argument("matrix dimension must be at least 4"); 
+
+    # pragma omp parallel for
     for (int i = 0; i < n; i++)
     {
         if (i > 1 && i + 2 < n)
@@ -61,4 +66,3 @@ The values stored in out after execution are
     60
     47
      
-**Last Modified:** 12/8/19
