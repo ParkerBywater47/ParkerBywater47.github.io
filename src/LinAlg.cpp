@@ -416,12 +416,11 @@ void square_solve_in_place(Matrix& A, double b[], double out[])
     up_triangular_back_sub(A, b, out); 
 }
 
-void lower_triangular_fwd_sub(Matrix& A, double b[], double out[]) 
+void lower_triangular_fwd_sub(const Matrix& A, const double b[], double out[]) 
 {
-    if (A.get_num_rows() != A.get_num_cols()) 
-	throw std::invalid_argument("Matrix must be square");
-
     const int n = A.get_num_rows();
+    if (n != A.get_num_cols()) 
+	throw std::invalid_argument("Matrix must be square");
 
     out[0] = b[0] / A[0][0];
     for (int i = 1; i < n; i++)
@@ -435,12 +434,11 @@ void lower_triangular_fwd_sub(Matrix& A, double b[], double out[])
     }
 }
 
-void up_triangular_back_sub(const Matrix& A, double b[], double out[]) 
+void up_triangular_back_sub(const Matrix& A, const double b[], double out[]) 
 {
-    if (A.get_num_rows() != A.get_num_cols())
-        throw std::invalid_argument("Matrix must be square");
-    
     const int n = A.get_num_rows(); 
+    if (n != A.get_num_cols())
+        throw std::invalid_argument("Matrix must be square");
 
     out[n - 1] = b[n - 1] / A[n - 1][n - 1];
     for (int i = n - 2; i >= 0; i--) 

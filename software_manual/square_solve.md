@@ -19,7 +19,7 @@ matrix should be an instance of [this](../src/Matrix.cpp) class and the vector s
 must be included and you must use the `-fopenmp` option when compiling.   
 
 ```C++  
-inline void square_solve(const Matrix& A, double b[], double out[]) 
+inline void square_solve(const Matrix& A, const double b[], double out[]) 
 {
     if (A.get_num_rows() != A.get_num_cols())
 	throw std::invalid_argument("A must be a square matrix");

@@ -25,9 +25,9 @@ int jacobi_iteration(const Matrix& A, const double b[], const double initial_gue
 
 std::pair<Matrix, Matrix> cholesky(const Matrix& A); 
 
-void lower_triangular_fwd_sub(Matrix& A, double b[], double out[]); 
+void lower_triangular_fwd_sub(const Matrix& A, const double b[], double out[]); 
 
-void up_triangular_back_sub(const Matrix& A, double b[], double out[]);
+void up_triangular_back_sub(const Matrix& A, const double b[], double out[]);
 
 void square_solve_spp_in_place(Matrix& A, double b[], double out[]); 
 
@@ -115,7 +115,7 @@ inline void square_solve_spp(const Matrix& A, const double b[], double out[])
 
 void square_solve_spp_in_place(Matrix& A, double b[], double out[]); 
 
-inline void LU_solve(Matrix& L, Matrix& U, double b[], double out[]) 
+inline void LU_solve(const Matrix& L, const Matrix& U, const double b[], double out[]) 
 {
     // solve Lc = b 
     double * c = new double[L.get_num_rows()]; 

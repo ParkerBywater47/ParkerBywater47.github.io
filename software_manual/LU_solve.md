@@ -15,7 +15,7 @@ should be an array.
 
 **Implementation/Code:** The following is the code for LU\_solver.
 ```C++ 
-inline void LU_solve(Matrix& L, Matrix& U, double b[], double out[]) 
+inline void LU_solve(const Matrix& L, const Matrix& U, const double b[], double out[]) 
 {
     // solve Lc = b 
     double * c = new double[L.get_num_rows()]; 
@@ -26,6 +26,9 @@ inline void LU_solve(Matrix& L, Matrix& U, double b[], double out[])
     delete[] c; 
 }
 ```
+**Dependencies:** 
+* `lower_triangular_fwd_sub` code [here](./lower_triangular_fwd_sub.md)
+* `up_triangular_back_sub` code [here](./up_triangular_back_sub.md)
 
 **Usage/Example:** Sample output with L = 
 
