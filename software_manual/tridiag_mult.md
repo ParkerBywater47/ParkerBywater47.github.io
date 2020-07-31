@@ -18,7 +18,7 @@ and superdiagonal bands of the matrix.
 must be included and you must use the `-fopenmp` option when compiling.   
    
 ```C++ 
-void tridiag_mult(const double lower[], const double mid[], const double upper[], const double x[], double out[], const int n)
+void tridiag_mult(const double lo[], const double mid[], const double up[], const double x[], double out[], const int n)
 {
     if (n < 2)
         throw std::invalid_argument("matrix dimension must be at least 2"); 
@@ -28,15 +28,15 @@ void tridiag_mult(const double lower[], const double mid[], const double upper[]
     {
         if (i > 0 && i + 1 < n)
         {
-            out[i] = lower[i - 1] * x[i - 1] + mid[i] * x[i] + upper[i] * x[i + 1]; 
+            out[i] = lo[i - 1] * x[i - 1] + mid[i] * x[i] + up[i] * x[i + 1]; 
         }
         else if (i + 1 < n) 
         {
-            out[i] = mid[i] * x[i] + upper[i] * x[i + 1]; 
+            out[i] = mid[i] * x[i] + up[i] * x[i + 1]; 
         }       
         else 
         {
-            out[i] = lower[i -1] * x[i-1] + mid[i] * x[i]; 
+            out[i] = lo[i -1] * x[i-1] + mid[i] * x[i]; 
         }
     }
 }

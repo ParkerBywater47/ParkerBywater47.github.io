@@ -1,46 +1,44 @@
-**Routine Name:** InversePowerMethod 
+**Routine Name:** inverse_power_iteration 
 
 **Author:** Parker Bywater
 
-**Language:** C++. This can be compiled using an appropriate C++ compiler. 
+**Language:** C++ 
 
-**Description/Purpose:** This routine approximates the eigenvalue with the smallest magnitude for a given matrix.
-This requires an initial guess of the eigenvector corresponding to the smallest magnitude eigenvalue. 
+**Description/Purpose:** This routine approximates the eigenvalue with the smallest magnitude (absolute value) for a given matrix.
+
+<!--
 It's important to note that this initial guess cannot be a multiple of any other eigenvector of the matrix,
 or else the method will converge to its associated eigenvalue. This routine assumes the matrix is non-singular.
+-->
 
-**Input:** A matrix, an initial guess of the associated eigenvector, a desired tolerance, and the dimension of
-the matrix. 
- 
-**Output:** This routine returns an approximation of the smallest magnitude eigenvalue within the specified 
-tolerance.  
+**Input:** A diagonalizable matrix as an instance of [this](../src/Matrix.cpp) matrix class, an error tolerance, a maximum number of iterations, and an initial guess of the eigenvector corresponding to the smallest eigenvalue. The initial guess is ideally a random vector. It is necessary that no entries be zero.  
 
-**Implementation/Code:** The following is the code for InversePowerMethod.
-   
+**Output:** This routine returns an approximation of the smallest magnitude eigenvalue within the specified tolerance.  
+
+**Implementation/Code:** The following is the code for inverse_power_iteration. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
+must be included and you must use the `-fopenmp` option when compiling.   
+
 ```C++ 
-double InversePowerMethod(double *A[], double initial_guess[], double tol, const int max_iter, const int n)
+double inverse_power_iteration(const Matrix& A, const double initial_guess[], const double tol, const int max_iter)
 {
-    // compute the LU factorization of A
-    double ** L = new double*[n]; 
-    for (int i = 0; i < n; i++) 
-        L[i] = new double[n]; 
-    double ** U = new double*[n];
-    for (int i = 0; i < n; i++) 
-        U[i] = new double[n]; 
+    const int n = A.get_num_rows(); 
+    std::pair<Matrix, Matrix> lu_fact = LU(A);     
+    
+    Matrix& L = lu_fact.first;
+    Matrix& U = lu_fact.second; 
 
-    LU_fact(A, L, U, n);     
-
-    // initialize currX and update with values from initial_guess
-    double * currX = new double[n]; 
+    // initialize current x and update with values from initial_guess
+    double * curr_x = new double[n]; 
+    #pragma omp parallel for
     for (int i = 0; i < n; i++)    
-        currX[i] = initial_guess[i]; 
+        curr_x[i] = initial_guess[i]; 
 
-    // initialize nextX and y    
-    double * nextX = new double[n]; 
+    // initialize next x and y    
+    double * next_x = new double[n]; 
     double * y = new double[n]; 
 
 
-    diff stores the difference of nextX and currX to compute error at each iteration
+    // diff stores the difference of next x and curr x to compute error at each iteration
     double * diff = new double[n];
 
     double err = 2 * tol; 
@@ -48,38 +46,32 @@ double InversePowerMethod(double *A[], double initial_guess[], double tol, const
     while (err > tol && iter < max_iter) 
     {
         // solve for y
-        LU_sub_solver(L, U, currX, y, n); 
+        LU_solve(L, U, curr_x, y); 
 
         // compute next x
-        scale_vector(y, 1.0 / L2_norm(y, n), nextX, n);
+        scale_vector(y, 1.0 / L2_norm(y, n), next_x, n);
 
         // update error
-        subtract_vectors(nextX, currX, diff, n);
+        subtract_vectors(next_x, curr_x, diff, n);
         err = L2_norm(diff, n);
 
-        // set currX = nextX forward
+        // set curr_x forward
+        # pragma omp parallel for
         for (int i = 0; i < n; i++)
-            currX[i] = nextX[i]; 
+            curr_x[i] = next_x[i]; 
         ++iter; 
     } 
 
     // compute the dominant eigenvalue of A inverse using modified Rayleigh quotient 
-    double eig = dot_product(y, currX, n) / dot_product(currX, currX, n); 
+    double eig = dot_product(y, curr_x, n) / dot_product(curr_x, curr_x, n); 
 
     // clean up memory
-    for (int i = 0; i < n; i++) 
-        delete[] L[i] ; 
-    delete[] L;  
-    for (int i = 0; i < n; i++) 
-        delete[] U[i]; 
-    delete[] U;
-
-    delete[] currX;  
-    delete[] nextX; 
+    delete[] curr_x;  
+    delete[] next_x; 
     delete[] y;
     delete[] diff; 
     
-    // return 1 / eig because eig is dominant eig of A inverse and we want min eigenvalue of A 
+    // return 1 / eig because we've really found the dominant eigenvalue of A inverse, but need to return smallest of A  
     return 1.0 / eig; 
 }
 ```
@@ -93,5 +85,3 @@ double InversePowerMethod(double *A[], double initial_guess[], double tol, const
 
 The result is 6611.17, which is indeed the smallest magnitude eigenvalue according to WolframAlpha. 
 
-
-**Last Modified:** 12/11/19

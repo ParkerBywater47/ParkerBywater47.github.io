@@ -6,12 +6,13 @@
 
 **Description/Purpose:** This routine computes the dominant eigenvalue (the eigenvalue with the largest absolute value) of a diagonalizable matrix. 
 
-**Input:** A diagonalizable matrix as an instance of [this](../src/Matrix.cpp) matrix class, an error tolerance, a maximum number of iterations, and an initial guess of the eigenvector corresponding to the dominant eigenvalue. The initial guess can be anything other than a vector of zeroes; better guesses simply mean faster convergence on average.  
+**Input:** A diagonalizable matrix as an instance of [this](../src/Matrix.cpp) matrix class, an error tolerance, a maximum number of iterations, and an initial guess of the eigenvector corresponding to the dominant eigenvalue. The initial guess is ideally a random vector. It is necessary that no entries be zero.  
  
 **Output:** This routine returns an approximation of the dominant eigenvalue of the matrix within the given error tolerance or the most recent approximation if the iteration limit is reached. 
 
-**Implementation/Code:** The following is the code for power\_iteration.
-   
+**Implementation/Code:** The following is the code for power\_iteration. This code includes OpenMP compiler directives to take advantage of multiple threads. To use these, the `omp.h` header
+must be included and you must use the `-fopenmp` option when compiling.   
+
 ```C++ 
 double power_iteration(const Matrix& A, const double initial_guess[], const double tol, const int max_iter)
 {
