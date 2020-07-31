@@ -43,6 +43,10 @@ into a new matrix to not alter the given data if necessary.
 * [Gauss-Seidel Iteration](./gauss_seidel_iteration.md) - Solves a square stricly diagonally dominant system of linear equations iteratively using the Gauss-Seidel method. 
 * [Gradient Descent](./gradient_descent.md) - Approximates the solution to a linear system of equations using the method of (steepest) gradient descent. 
 * [Conjugate Gradient](./conjugate_gradient.md) - Approximates the solution to a linear system of equations using the conjugate gradient method. 
+* [Tridiagonal Multiplication](./tridiag_mult.md) - Computes the product of a tridiagonal matrix and a vector avoiding computations with zeroes.
+* [Pentadiagonal Multiplication](./pentadiag_mult.md) - Computes the product of a pentadiagonal matrix and a vector avoiding computations with zeroes.
+* [Power Iteration](./power_iteration.md) - Approximates the largest (in absolute value) eigenvalue of a diagonalizable matrix.
+* [Inverse Power Iteration](./inverse_power_iteration.md) - Approximates the smallest (in absolute value) eigenvalue of a diagonalizable matrix.
 
 ## Leetcode Problems
 * [Two Sum](./two_sum.md)

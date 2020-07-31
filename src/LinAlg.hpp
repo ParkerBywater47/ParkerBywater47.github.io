@@ -7,6 +7,9 @@
 #include <utility>
 #include <math.h>
 
+Matrix hilbert_matrix(const int n) ; 
+
+double power_iteration(const Matrix& A, const double initial_guess[], const double tol, const int max_iter); 
 
 void pentadiag_mult(const double lolo[], const double lo[], const double mid[], const double up[], const double upup[], const double x[], double out[], const int n); 
 
@@ -223,6 +226,16 @@ inline void ones_vector(int n, double out[])
     # pragma omp parallel for
     for (int i = 0; i < n; i++)
         out[i] = 1;
+}
+
+inline double inf_norm(const double v[], const int n)
+{ 
+    double max = fabs(v[0]);
+    for (int i = 1; i < n; i++) 
+    {
+        max = fmax(fabs(v[i]), max);   
+    }
+    return max;
 }
 
 #endif

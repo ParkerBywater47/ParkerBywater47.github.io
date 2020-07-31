@@ -7,6 +7,52 @@
 
 #include <iostream>
 
+double power_iteration(const Matrix& A, const double initial_guess[], const double tol, const int max_iter)
+{
+    const int n = A.get_num_rows();
+
+    double * Acurr = new double[n];    // just a place to store A * curr 
+    double * curr = new double[n]; 
+    double * next = new double[n];
+    double * next_minus_curr = new double[n];
+
+    // compute normalized initial_guess and store it in curr    
+    double scale = L2_norm(initial_guess, n); 
+    # pragma omp parallel for
+    for (int i = 0; i < n; i++) 
+        curr[i] = initial_guess[i] / scale; 
+
+    double err = 2 * tol; 
+    int iter = 0; 
+    while (err > tol && iter < max_iter) 
+    {
+        // compute A * curr
+        left_matrix_vector_mult(A, curr, Acurr); 
+
+        // compute A * curr / ||A * curr|| and store it in next
+        scale_vector(Acurr, 1 / L2_norm(Acurr, n), next, n);
+
+        // update necessary things 
+        subtract_vectors(next, curr, next_minus_curr, n); 
+        err = fabs(inf_norm(next_minus_curr, n)); 
+        # pragma omp parallel for
+        for (int i = 0; i < n; i++)
+            curr[i] = next[i];
+        iter++;        
+    }
+
+    // return the dominant eigenvalue as determined by Rayleigh coeffecient 
+    left_matrix_vector_mult(A, curr, Acurr);
+    
+    double out = dot_product(Acurr, curr, n) / dot_product(curr, curr, n); 
+
+    delete[] Acurr; 
+    delete[] curr; 
+    delete[] next; 
+    delete[] next_minus_curr;
+
+    return out;
+}
 
 void pentadiag_mult(const double lolo[], const double lo[], const double mid[], const double up[], const double upup[], const double x[], double out[], const int n) 
 {
@@ -671,3 +717,15 @@ Matrix random_diag_dom_symmetric_matrix(const int n, const int seed)
 }
 
 
+Matrix hilbert_matrix(const int n) 
+{
+    Matrix out(n,n); 
+    for (int i = 0; i < n; i++) 
+    {
+        for (int j = 0; j < n; j++) 
+        {
+            out[i][j] = 1.0 / (i + j + 1); 
+        }
+    }
+    return out; 
+}
