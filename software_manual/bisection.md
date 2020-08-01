@@ -15,7 +15,7 @@
 **Implementation/Code:** The following is the code for bisection. 
    
 ```C++ 
-double bisection(const double (*f)(double), double a, double b, double tol) 
+double bisection(const double (*f)(double), double a, double b, const double tol) 
 {
     if (f(a) * f(b) > 0) 
         throw std::invalid_argument("f(a) * f(b) must be <= 0");

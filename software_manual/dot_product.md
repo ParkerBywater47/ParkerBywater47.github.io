@@ -13,7 +13,7 @@
 **Implementation/Code:** The following is the code for dot_product. 
    
 ```C++ 
-double dot_product(double vec1[], double vec2[], const int n) {
+inline double dot_product(const double vec1[], const double vec2[], const int n) {
     double sum = 0;
     for (int i = 0; i < n; i++)
         sum += vec1[i] * vec2[i]; 
