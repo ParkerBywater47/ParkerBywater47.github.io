@@ -13,7 +13,7 @@
 * [Bisection Method](./bisection.md) - Computes the approximate root of a function of a single real variable using the bisection method. 
 * [Newton's Method](./newton.md) - An implementation of Newton's method for computing approximate roots of a function of a single real variable. 
 * [Secant Method](./secant.md) - An implementation of the secant method for computing approximate roots of a function of a single real variable.
-* [Bisection-Newton Hybrid](./bisectNewtonHybrid.md) - My very own hybrid root finding method which uses Newton's 
+* [Bisection-Newton Hybrid](./bisect_newton_hybrid.md) - My very own hybrid root finding method which uses Newton's 
 method for (possibly) fast convergence and the bisection method to guarantee convergence. 
 <!--
 * [Bisection-Secant Hybrid](./bisectSecantHybrid.md) -  
