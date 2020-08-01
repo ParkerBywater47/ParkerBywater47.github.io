@@ -40,7 +40,7 @@ inline double L2_norm(const double vec[], const int n)
     return sqrt(sum);
 }
 
-int gauss_seidel_iteration(const Matrix& A, const double b[], double initial_guess[], const double tol, const int max_iter, double out[]) ;
+int gauss_seidel_iteration(const Matrix& A, const double b[], const double initial_guess[], const double tol, const int max_iter, double out[]) ;
 
 int jacobi_iteration(const Matrix& A, const double b[], const double initial_guess[], const double tol, const int max_iter, double out[]) ;
 

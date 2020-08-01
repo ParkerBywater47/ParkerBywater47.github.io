@@ -8,7 +8,7 @@
 LU-factorization of the coeffecient matrix. 
 
 **Input:** Lower and upper triangular matrices, a right-hand side vector, and a memory location to 
-store the solution. The matrices should be instances of [this](./Matrix.cpp) class and the vector 
+store the solution. The matrices should be instances of [this](./Matrix.cpp) matrix class and the vector 
 should be an array.   
  
 **Output:** This routine writes the solution of the system to the 'out' parameter.

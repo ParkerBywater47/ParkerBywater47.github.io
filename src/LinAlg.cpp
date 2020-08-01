@@ -331,7 +331,7 @@ int gradient_descent(const Matrix& A, const double b[], const double init_guess[
     return iter; 
 }
 
-int gauss_seidel_iteration(const Matrix& A, const double b[], double initial_guess[], const double tol, const int max_iter, double out[]) 
+int gauss_seidel_iteration(const Matrix& A, const double b[], const double initial_guess[], const double tol, const int max_iter, double out[]) 
 {
     const int n = A.get_num_rows();
 

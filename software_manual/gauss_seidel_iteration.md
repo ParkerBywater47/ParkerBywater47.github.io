@@ -6,7 +6,7 @@
 
 **Description/Purpose:** This routine implements the Gauss-Seidel method of solving square systems of linear equations. The coeffecient matrix must be either strictly diagonally dominant or symmetric and positive definite to guarantee convergence. 
 
-**Input:** Coeffecient matrix A, a right-hand side vector b, an initial guess of the solution, desired tolerance, maximum number of iterations, and a memory location to write the solution.  
+**Input:** Coeffecient matrix A, a right-hand side vector b, an initial guess of the solution, desired tolerance, maximum number of iterations, and a memory location to write the solution. The matrix should be an instance of [this](../src/Matrix.cpp) matrix class.
  
 **Output:** This routine computes an approximation of the solution which has an error less than or euqal to the given
 tolerance if convergence was not too slow. If convergence was slow the most recently computed approximation will be returned. The solution is written to the parameter `out`. This routine also returns the number of iterations required to find the solution as this can be useful information in some cases. 
@@ -14,7 +14,7 @@ tolerance if convergence was not too slow. If convergence was slow the most rece
 **Implementation/Code:** The following is the code for gauss_seidel_iteration.
    
 ```C++ 
-int gauss_seidel_iteration(const Matrix& A, const double b[], double initial_guess[], const double tol, const int max_iter, double out[]) 
+int gauss_seidel_iteration(const Matrix& A, const double b[], const double initial_guess[], const double tol, const int max_iter, double out[]) 
 {
     const int n = A.get_num_rows();
 

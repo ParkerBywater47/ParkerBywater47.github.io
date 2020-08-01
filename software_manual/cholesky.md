@@ -6,7 +6,7 @@
 
 **Description/Purpose:** This routine computes the Cholesky facorization of a positive definite real-valued matrix. 
 
-**Input:** A real-valued positive definite matrix which is an instance of [this](../src/Matrix.cpp) Matrix class.
+**Input:** A real-valued positive definite matrix which is an instance of [this](../src/Matrix.cpp) matrix class.
  
 **Output:** This routine returns an instance of `std::pair` with the first being L and the second being L\*. 
 

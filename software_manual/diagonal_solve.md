@@ -8,7 +8,7 @@
 linear system of equations (Ax = b) where the coeffecient matrix is diagonal.  
 
 **Input:** A diagonal matrix, a vector, and a memory location to write the solution. The matrix 
-should be an instance of [this](../src/Matrix.cpp) Matrix class
+should be an instance of [this](../src/Matrix.cpp) matrix class
 and the vector should be an array. 
  
 **Output:** This routine returns the solution of the system by writing the result to the `out` parameter.

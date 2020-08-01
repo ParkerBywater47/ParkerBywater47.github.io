@@ -8,7 +8,7 @@
 back substitution. This routine performs the Gaussian elimination using scaled partial pivoting (spp) for the sake of greater numerical stability.
 
 **Input:** A square matrix, a right-hand side vector, and a memory location to store the result. The
-matrix should be an instance of [this](../src/Matrix.cpp) class and the vector should be an array.
+matrix should be an instance of [this](../src/Matrix.cpp) matrix class and the vector should be an array.
  
 **Output:** This routine writes the solution of the system to the provided memory location. 
 
