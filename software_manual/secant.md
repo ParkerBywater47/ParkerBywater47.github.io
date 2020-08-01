@@ -35,6 +35,8 @@ double secant(const double (*f)(double), const double x0, const double x1, const
 **Usage/Example:** Below is some sample code to show the method working for the function f(x) = xcosh(x) + x^3 - pi with initial guesses of 2 and 3, tolerance of 1.0E-6, and 20 iterations at most. 
     
 ```C++ 
+#define _USE_MATH_DEFINES   // for pi constant
+
 const double cosh_function(double x)  
 {
     return x * cosh(x) + pow(x, 3) - M_PI; 

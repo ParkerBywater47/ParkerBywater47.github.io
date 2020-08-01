@@ -13,7 +13,7 @@ bisection and Newton methods. Guarantees the convergence of bisection, and possi
 
 **Implementation/Code:** The following is the code for bisect_newton_hybrid. 
    
-```java 
+```C++
 double bisect_newton_hybrid(const double (*f)(double), const double (*df)(double), double a, double b, const double tol) 
 {
     // check that the input is valid and for the possibility that f(a) or f(b) are zero
@@ -97,6 +97,8 @@ double bisect_newton_hybrid(const double (*f)(double), const double (*df)(double
 **Usage/Example:** Below is some sample code to show the method working for the function f(x) = xcosh(x) + x^3 - pi with a bisection interval bounded by 0 and 3, and a tolerance of 1.0E-6. 
     
 ```C++ 
+#define _USE_MATH_DEFINES
+
 const double cosh_function(double x)  
 {
     return x * cosh(x) + pow(x, 3) - M_PI; 

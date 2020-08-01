@@ -9,6 +9,7 @@
 **Input:** A function pointer which points to the target function, a function pointer to the derivative of the function, an initial guess of the root, desired error tolerance, and a maximum number of iterations as Newton's method doesn't always converge. 
 
 **Output:** This routine returns the root of the function with error less than or equal to tolerance. 
+
 **Implementation/Code:** The following is the code for newton. 
    
 ```C++ 
@@ -36,6 +37,8 @@ double newton(const double (*f)(double), const double (*df)(double), const doubl
 **Usage/Example:** Below is some sample code to show the method working for the function f(x) = xcosh(x) + x^3 - pi with an initial guess of 2, tolerance of 1.0E-6, and 20 iterations at most. 
     
 ```C++ 
+#define _USE_MATH_DEFINES   // for pi constant
+
 const double cosh_function(double x)  
 {
     return x * cosh(x) + pow(x, 3) - M_PI; 

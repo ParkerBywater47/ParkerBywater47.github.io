@@ -15,8 +15,6 @@
 **Implementation/Code:** The following is the code for bisection. 
    
 ```C++ 
-#define _USE_MATH_DEFINES   // for pi constant
-
 double bisection(const double (*f)(double), double a, double b, double tol) 
 {
     if (f(a) * f(b) > 0) 
@@ -44,6 +42,8 @@ double bisection(const double (*f)(double), double a, double b, double tol)
 **Usage/Example:** Below is sample code that can be added to the above to show the bisection method working on the function f(x) = xcosh(x) + x^3 - pi with a = -100, b = 100, and tol = 1.0E-6.  
     
 ```C++
+#define _USE_MATH_DEFINES   // for pi constant
+
 const double cosh_function(double x) 
 {
     return x * cosh(x) + pow(x, 3) - M_PI; 
