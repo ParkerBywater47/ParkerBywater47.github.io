@@ -9,7 +9,7 @@ back substitution without using extra storage space. As a consequence the value 
 naively, that is, it assumes the matrix is not singular and doesn't attempt row swaps.  
 
 **Input:** A matrix, a vector, and a memory location to write the solution. The matrix 
-should be an instance of [this](../src/Matrix.cpp) Matrix class
+should be an instance of [this](../src/Matrix.cpp) matrix class
 and the vector should be an array.  
 
 **Output:** This routine returns the solution of the system by writing the result to the `out` 

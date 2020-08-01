@@ -6,7 +6,7 @@
 
 **Description/Purpose:** This routine performs gaussian elimination on a square matrix.  
 
-**Input:** A square matrix as an instance of [this](./Matrix.cpp) Matrix class.  
+**Input:** A square matrix as an instance of [this](../src/Matrix.cpp) Matrix class.  
  
 **Output:** This routine returns the row echelon form of the matrix as an instance of
 the aforementioned Matrix class.   

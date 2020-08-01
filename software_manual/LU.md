@@ -5,8 +5,7 @@
 **Language:** C++
 
 **Description/Purpose:** This routine computes the LU-factorization of a square matrix. It does so assuming that the matrix is nonsigular. This is because life gets very hard when your matrices are singular. 
-
-**Input:** A square nonsingular matrix.
+**Input:** A square nonsingular matrix as an instance of [this](../src/Matrix.cpp). 
  
 **Output:** This routine returns the LU-factorization of the matrix as a pair of matrices with the first being L and the second being U.  
 
