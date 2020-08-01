@@ -9,7 +9,9 @@
 * [Relative Error](./rel_err.md) - Computes the relative error between a number, say x, and approximation of a number, say y.
 
 ### Root Finding Methods
+<!--
 * [Fixed Point Iteration](./fixed_point.md) - Computes the approximate root of a function of a single real variable using a functional iteration technique. 
+-->
 * [Bisection Method](./bisection.md) - Computes the approximate root of a function of a single real variable using the bisection method. 
 * [Newton's Method](./newton.md) - An implementation of Newton's method for computing approximate roots of a function of a single real variable. 
 * [Secant Method](./secant.md) - An implementation of the secant method for computing approximate roots of a function of a single real variable.
