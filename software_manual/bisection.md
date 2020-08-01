@@ -15,20 +15,12 @@
 **Implementation/Code:** The following is the code for bisection. 
    
 ```C++ 
-#include <math.h>
-#include <stdexcept>
-
 #define _USE_MATH_DEFINES   // for pi constant
 
-
-double cosh_function(double x); 
-
-double bisection(double (*f)(double), double a, double b, double tol) 
+double bisection(const double (*f)(double), double a, double b, double tol) 
 {
     if (f(a) * f(b) > 0) 
-    { 
         throw std::invalid_argument("f(a) * f(b) must be <= 0");
-    }
     else if (f(a) == 0) 
         return a; 
     else if (f(b) == 0)
@@ -52,7 +44,7 @@ double bisection(double (*f)(double), double a, double b, double tol)
 **Usage/Example:** Below is sample code that can be added to the above to show the bisection method working on the function f(x) = xcosh(x) + x^3 - pi with a = -100, b = 100, and tol = 1.0E-6.  
     
 ```C++
-double cosh_function(double x) 
+const double cosh_function(double x) 
 {
     return x * cosh(x) + pow(x, 3) - M_PI; 
 }
@@ -68,4 +60,3 @@ The output should be similar to mine shown below
     
     The root of x*cosh(x) + x^3 - pi is approximately 1.0963279753923416
 
-**Last Modified:** 10/6/19
