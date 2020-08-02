@@ -2,6 +2,10 @@
 #include <omp.h>
 #include <iostream>
 
+// 
+// Constructor for creating an "empty" matrix. Item assignment can then be used to 
+// fill the matrix with the appropriate data
+//
 Matrix::Matrix(int num_rows, int num_cols): num_rows_(num_rows), num_cols_(num_cols)
 {  
     this->data = new double*[num_rows_] ;
@@ -11,11 +15,19 @@ Matrix::Matrix(int num_rows, int num_cols): num_rows_(num_rows), num_cols_(num_c
     } 
 }
 
+//
+// Constructor for creating a matrix whose data is already stored in a contiguous block of memory 
+// (an array) elsewhere. This block must be contiguous as the initialize_data method does the pointer 
+// arithmetic under this assumption. 
+//
 Matrix::Matrix(int num_rows, int num_cols, double * ptr_to_first): num_rows_(num_rows), num_cols_(num_cols)
 {
     initialize_data(ptr_to_first); 
 }
 
+// 
+// Destructor. Just deallocates memory
+//
 Matrix::~Matrix() {
     for (int i = 0; i < num_rows_; i++)
     {
@@ -24,8 +36,10 @@ Matrix::~Matrix() {
     delete[] data; 
 }
 
+// 
+// Copy constructor
+//
 Matrix::Matrix(const Matrix& mat) {
-    std::cout << "Matrix copy constructor called" << std::endl;
     num_rows_ = mat.num_rows_;
     num_cols_ = mat.num_cols_; 
     this->data = new double*[mat.num_rows_]; 
