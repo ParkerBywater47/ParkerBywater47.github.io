@@ -1,4 +1,4 @@
-**Routine Name:** L2AbsErr 
+**Routine Name:** abs_err_L2 
 
 **Author:** Parker Bywater
 
@@ -14,7 +14,8 @@ using the L2-norm.
 **Implementation/Code:** The following is the code for L2AbsErr. 
    
 ```java 
-static double L2AbsErr(double[] approximation, double[] exact) {
+double abs_err_L2(double[] approximation, double[] exact)
+{
         return Math.abs(L2Norm(approximation) - L2Norm(exact));
 }
 ```

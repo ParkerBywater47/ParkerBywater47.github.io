@@ -23,6 +23,7 @@ int jacobi_iteration(const Matrix& A, const double b[], const double initial_gue
     double err = 2 * tol;
     double * curr = new double[n];
     double * next = new double[n];
+    double * err_vec = new double[n];
 
     // make curr = initial_guess
     # pragma omp parallel for
@@ -31,6 +32,8 @@ int jacobi_iteration(const Matrix& A, const double b[], const double initial_gue
 
     while (iter++ < max_iter && err > tol) 
     {
+        // cout << "curr @ iter: " << iter << endl;
+        // cout << "err = " << err << endl;
         # pragma omp parallel for
         for (int i = 0; i < n; i++) 
         {
@@ -43,7 +46,8 @@ int jacobi_iteration(const Matrix& A, const double b[], const double initial_gue
             next[i] = (b[i] - sum) / A[i][i];
         }
         // update the error
-        err = fabs(L2_norm(next, n) - L2_norm(curr, n));
+        subtract_vectors(next, curr, err_vec, n);
+        err = L2_norm(err_vec, n); 
 
         // make curr = next for next iteration
         # pragma omp parallel for
@@ -57,9 +61,11 @@ int jacobi_iteration(const Matrix& A, const double b[], const double initial_gue
 
     delete[] curr;
     delete[] next; 
+    delete[] err_vec;
     return iter - 1;
 }
 ```
+**Dependencies**: `L2_norm` code [here](./L2_norm.md)
 
 **Usage/Example:** Sample output with A =  
 
