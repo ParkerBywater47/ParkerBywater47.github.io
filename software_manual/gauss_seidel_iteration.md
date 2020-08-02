@@ -22,6 +22,7 @@ int gauss_seidel_iteration(const Matrix& A, const double b[], const double initi
     double err = 2 * tol;
     double * curr = new double[n];
     double * next = new double[n];
+    double * err_vec = new double[n];
 
     // make curr = initial_guess
     # pragma omp parallel for 
@@ -35,6 +36,8 @@ int gauss_seidel_iteration(const Matrix& A, const double b[], const double initi
 
     while (iter++ < max_iter && err > tol)
     {
+        // cout << "curr @ iter: " << iter << endl;
+        // cout << "err = " << err << "\n" << endl;
         for (int i = 0; i < n; i++)
         {
             double sum = 0.0;
@@ -47,7 +50,8 @@ int gauss_seidel_iteration(const Matrix& A, const double b[], const double initi
         }
 
         // update the error
-        err = fabs(L2_norm(next, n) - L2_norm(curr, n));
+        subtract_vectors(next, curr, err_vec, n);
+        err = L2_norm(err_vec, n); 
 
         // make curr = next for next iteration
         # pragma omp parallel for
@@ -61,10 +65,11 @@ int gauss_seidel_iteration(const Matrix& A, const double b[], const double initi
 
     delete[] curr;
     delete[] next; 
+    delete[] err_vec;
     return iter - 1; 
 }
-}
 ```
+**Dependencies:** `L2_norm` code [here](./L2_norm.md) 
 
 **Usage/Example:** Sample output with A =  
 
